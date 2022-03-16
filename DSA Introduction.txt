@@ -1,0 +1,135 @@
+All information from https://www.programiz.com/dsa
+
+Algorithms:
+    https://www.programiz.com/dsa/algorithm
+    - A set of clear inputs and an output
+    Example: An algorithm that takes in two inputs and outputs the sum
+        A + B -> C
+    - Algorithm should not be written in machine code but rather in a way that allows it to be written in any computer language
+
+
+Data Structurs:
+    https://www.programiz.com/dsa/data-structure-types
+    - Storage system that is used to store and organize data.
+    - Arrange data on a computer so that it can be accessed and updated efficiently.
+    - Different from Data type (Data type is a type of data such as int, float, char, etc.)
+    - Data types have no time complexity.
+    - Data structures have time complexity.
+
+    Linear Data Structures:
+        - Data is arranged in sequential order
+        - Easy to implement
+        - Not best choice when operational complexity increases
+        Array Data Structure:
+            Data:  2, 1, 5, 3, 4
+            Index: 0, 1, 2, 3, 4
+        Stack Data Structure:
+            LIFO: Last In First Out
+            - Like stacked plates
+        Queue Data Structure:
+            FIFO: First In First Out
+            - Like a queue for a ticket booth "First come first serve"
+        Linked List Data Structure:
+            - Data is connected through nodes which connects all data.
+            - Each note contains data elements
+    
+    Non Linear Data Structures:
+        - Data is arranged hierarchically
+        - One element connects to one or more elements.
+        - Non Linear DS are further connected into graph and tree based data structures.
+
+        Graph Data Structure:
+            - Each node is called vertex
+            - Each vertex is connected to other vertices through edges.
+            Popular Graph Based Data Structrues:
+                - Spanning Tree and Minimum Spanning Tree
+                - Strongly Connected Components
+                - Adjacency Matrix
+                - Adjacency List
+        
+        Tree Data Structure:
+            - Similar to a graph, a tree is a collection of vertices and edges.
+            - In a tree however, there can only be one edge between two vertices.
+                Popular Tree Based Data Structures:
+                    - Binary Tree
+                    - Binary Search Tree
+                    - AVL Tree
+                    - B-Tree
+                    - B+ Tree
+                    - Red-Black Tree
+        
+    Linear Vs Non-linear Data Structures:
+        - Sequential Order vs Non-sequential heirarchical order
+        - Single layer structure vs Multilayer structure
+        - Can traverse all elements vs Must traverse multiple paths to cover all elements
+        - Not efficient memory utilization vs Memory efficient dependant on structure
+        - Time complexity increases with data size vs Time complexity remains the same
+        - Arrays, Stacks, Queues vs Trees, Graphs, Maps
+
+    Why Data Structures?
+        - Can help choosing the right data structure for time efficnecy.
+    
+    Scalability:
+        - Scalability is an important consideration as time and resources are precious
+        Example: Finding sum of 1 to n
+            int findSum() {
+                int sum = 0;
+                for (int i = 1; i <= 10^11; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+            - Time to run code = number of instructions * time to execute each instructions
+            - Steps and time for execution x = 1 + (10^11 + 1) + (10^11) + 1
+            - x = 2 * 10^11 + 3
+            - Computer can execute at y = 10^18
+            - Time to run code = x/y = approx. 16 minutes.
+            - This is an example of a linearly scalable algorithm
+        Example: Find sum of 1 to n with scalable efficient solution
+            - Sum = n * (n + 1) / 2
+            int sum(int n) {
+                return n * (n + 1) / 2;
+            }
+            - One execution
+            - Task is complete no matter the size of n
+            Time to run code = 1/y = 10 nanoseconds
+            - This is an example of a constant-time algorithm
+            ** Computers take more than one instruction for multiplaction and division but for simplicity it is 1
+        
+        Memory is expensive: When dealing with large data sets, it's critical to save memory
+            Example: Storing data about people
+                - Save date of birth rather than age
+                - Calculate age using date of birth on the fly
+    
+    Examples of Algorithm's Efficiency:
+        Example 1: Age Group Problem
+            - Assuming the data is sorted, the binary search algorithm can be used
+            - Instead of traversing through each data element sequentially, the binary search algorithm halves the data
+            and solves the problem in a logarithmetic time scale meaning a solution of size squared
+            will only take double the time to solve.
+            
+            It takes 1 second to search through a group of 1000
+            For a group of 1 million,
+                - The binary search algoirthm only takes 2 seconds
+                - The naive algorithm might take a million+ seconds, approx. 12 days.
+            - The binary search algorithm is most promintently used to find the square root of a number.
+
+        Example 2: Rubik's Cube Problem:
+            - Rubik's cubes have 43,252,003,274,489,856,000 positions
+            - There are many paths one can take to reach the wrong solution
+            - This can be solved using the graph data structure
+            - Graph algorithm known as the Dijkstra's algorithm allows you to solve this problem in linear time
+            - Allows you to reach the solved position in a minimum number of states
+
+        Example 3: DNA Problem
+            - A, C, T, G units in DNA
+            - Find occurences of a particular pattern
+            - Simplest solution narrows it down to
+            # of characters in DNA strand * # of characters in pattern
+            - KMP algoirthm gets it done in
+            # of characters in DNA strand + # of characters in pattern
+            - * operator replaced by + operator
+            - Algorithm makes it 1000 times faster
+   
+    
+Asymptotic Analysis: Big-O Notation and more:

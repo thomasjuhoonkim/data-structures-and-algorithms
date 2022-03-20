@@ -133,3 +133,165 @@ Data Structurs:
    
     
 Asymptotic Analysis: Big-O Notation and more:
+    https://www.programiz.com/dsa/asymptotic-notations
+    - Asymptotic is the measure of efficiency in Algorithms
+    - Algorithm may not have the same performance for each size of inputs
+    Asymptotic Analysis: the study of change in performance of the algorithm with change in input size.
+    
+    Asymptotic Notations:
+        - Worse case, best case, average case
+        - Big-O, Omega, Theta Notations
+
+        Big-O Notation:
+        f(n) = O(g(n))
+        - Measure of worst case
+        - Widely used to analyze algorithm as worse-case scenario is always Popular
+
+        Omega Notation:
+        f(n) = Ω(g(n))
+        - Measure of best case
+
+        Theta Notation:
+        f(n) = Θ(g(n)
+        - Measure of average case
+        - If a function lies inbetween two functions multiplied by constants, it is asymptotically tight bound.
+
+
+Master Theorem:
+    - Used for solving recurrence relations.
+        T(n) = aT(n/b) + f(n),
+        where,
+        n = size of input
+        a = number of subproblems in the recursion
+        n/b = size of each subproblem. All subproblems are assumed to have the same size.
+        f(n) = cost of the work done outside the recursive call,
+               which includes the cost of dividing the problem and cost of merging the solution
+        
+        Here, a ≥ 1 and b > 1 are constants, and f(n) is an asymptotically positive function.
+        - An asymptotically positive function means that for a sufficiently large value of "n", we have f(n) > 0.
+    - The master theorem is used in calculating hte time coplexity of recurrence relations (divide and conquer algorithms) in a simple and quick way.
+    
+    - If a is greater than or equal to 1 and b is greater than 1 are constants, and f(n) is an asymptotically positive function, then the time complexity of a recursive relation is:
+        T(n) = aT(n/b) + f(n)
+
+        where, T(n) has the following asymptotic bounds:
+
+            1. If f(n) = O(n^logb a-ϵ), then T(n) = Θ(n^logb a).
+
+            2. If f(n) = Θ(n^logb a), then T(n) = Θ(n^logb a * log n).
+
+            3. If f(n) = Ω(n^logb a+ϵ), then T(n) = Θ(f(n)).
+
+        ϵ > 0 is a constant.
+
+        1. If the cost of solving the sub-problems at each level increases by a certain factor,
+           the value of f(n) will become polynomically smallter than n^logb a.
+           This, the time copmlexity is oppressed by the cost of the last level ie. n^logb a.
+
+        2. If the cost of solving the sub-problem at each level is nearly equal,
+           then the value of f(n) will be n^logb a.
+           Thus, the time complexity will be f(n) times the total number of levels ie. n^logb a * logn
+
+        3. If the cost of solving the subproblems at each level decreases by a certain factor,
+           the value of f(n) will become polynomically larger than n^logb a.
+           Thus, the time complexity is oppressed by the cost of f(n).
+
+    Solved Example of Master Theorem:
+        T(n) = 3T(n/2) + n2
+        Here,
+        a = 3
+        n/b = n/2
+        f(n) = n2
+
+        logb a = log2 3 ≈ 1.58 < 2
+
+        ie. f(n) < nlogb a+ϵ , where, ϵ is a constant.
+
+        Case 3 implies here.
+
+        Thus, T(n) = f(n) = Θ(n2)
+
+    The master theorem cannot be used if:
+        T(n) is not monotone. eg. T(n) = sin n
+        f(n) is not a polynomial. eg. f(n) = 2n
+        a is not a constant. eg. a = 2n
+        a < 1
+
+
+Divide and Conquer Algorithm:
+    Strategy of solving a large problem by:
+        1. Breaking the problem into smaller sub-problems
+        2. Solving the sub-problems, and
+        3. Combining them to get the desired output.
+
+    To use the divide and conquer algorithm, recursion is used.
+    - Recursion is a function that continuosly calls upon itself.
+
+    How Divide and Conquer Algorithms Work?
+        1. Divide: Divide the given problem into sub-problems using recursion.
+        2. Conquer: Solve the smaller sub-problems recursively.
+           If the subproblem is small enough, then solve it directly.
+        3. Combine: Combine the solutions of the sub-problems that are part of the
+           recursive process to solve the actual problem.
+        
+        Example: Sort array using divide and conquer approach (Merge Sort)
+            1. Array: 7 6 1 5 4 3
+            2. Divide the array into two halves.
+                7 6 1, 5 4 3
+                Divide again until you get individual elements
+                7, 6, 1, 5, 4, 3
+            3. Combine individual elements in a sorted manner.
+                7, 6, 1, 5, 4, 3
+                6 7, 1, 4 5, 3
+                1 6 7, 3 4 5
+                1 3 4 5 6 7
+    
+    Time Complexity: Time Complexity of a divide and conquer algoruthm is calculated using the master theorem.
+        T(n) = aT(n/b) + f(n),
+        where,
+        n = size of input
+        a = number of subproblems in the recursion
+        n/b = size of each subproblem. All subproblems are assumed to have the same size.
+        f(n) = cost of the work done outside the recursive call, which includes the cost of dividing the problem and cost of merging the solutions
+    
+        For merge sort:
+        T(n) = aT(n/b) + f(n)
+             = 2T(n/2) + O(n)
+        Where, 
+        a = 2 (each time, a problem is divided into 2 subproblems)
+        n/b = n/2 (size of each sub problem is half of the input)
+        f(n) = time taken to divide the problem and merging the subproblems
+        T(n/2) = O(n log n) (To understand this, please refer to the master theorem.)
+
+        Now, T(n) = 2T(n log n) + O(n)
+                  ≈ O(n log n)
+
+    Divide and Conquer Vs Dynamic approach:
+        - Divide and Conquer approach does not save the result of each subproblem for future reference
+        - Dynamic approach saves results of subproblems for future reference.
+
+        - Use D&C approach when same subproblem is not solved multiple times.
+        - Use Dynamic approach when the result of a subproblem is to be used multiple times in the future.
+
+    Example: Fibonacci Series
+        Divide and Conquer approach:
+            fib(n)
+                If n < 2, return 1
+                Else, return (f(n - 1) + f(n - 2))
+            
+        Dynamic approach:
+            mem = []
+            fib(n)
+                If n in mem: return mem[n]
+                else,
+                    If n < 2, f = 1
+                    else, f = f(n - 1) + f(n - 2)
+                    mem[n] = f
+                    return f
+    
+    Advantages of Divide and Conquer Algorithm:
+        - The complexity for the multiplication of two matrices using the naive method is O(n^3),
+          whereas using the divide and conquer approach (i.e. Strassen's Matrix Multiplication) is O(n^2.8074).
+          This approach also simplifies other problems, such as the Tower of Hanoi.
+        - This approach is suitable for multiprocessing systems.
+        - It makes efficient use of memory caches.

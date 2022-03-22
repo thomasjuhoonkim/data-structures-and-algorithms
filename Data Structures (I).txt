@@ -130,3 +130,108 @@ Types of Queues:
     Deque (Double Ended Queue):
         - Insertion and removal of elements can be performed from either from the front or rear.
         - Thus, it does not follow the FIFO (First In First Out) rule.
+
+
+Circular Queue Data Structure:
+    https://www.programiz.com/dsa/circular-queue
+    - Extended version of a regular queue where the last element is connected to the first element.
+    - Forms a circle-like structure
+    - Solved the major limitation of a normal queue:
+        - After a bit of insertion and deletion, there will be non-usable empty space.
+        - Indexes that have been used can only be used again after resetting hte queue.
+        - Reduces actual size of the queue.
+    
+    How Circular Queue Works:
+        - Works by the process of circular increment.
+        - When trying to increment the pointer and we reach end of the queue,
+          we start from the beginning of the queue.
+        if REAR + 1 == 5 (overflow!), REAR = (REAR + 1)%5 = 0 (start of queue)
+        - Here the ciruclar increment is performed by modulo divison with the queue size.
+
+    Circular Queue Operations:
+        - Two pointers FRONT and REAR
+        - FRONT track the first element of the queue.
+        - REAR track the last elements of the queue.
+        - Initially, set value of FRONT and REAR to -1
+
+        1. Enqueue Operation
+            - Check if the queue is full
+            - For the first element, set value of FRONT to 0
+            - Circularly increase the REAR index by 1 (if the rear reaches end, next is at start)
+            - Add the new element in the position pointed to by REAR
+        
+        2. Dequeue Operation
+            - Check if the queue is empty
+            - Return the value pointed by FRONT
+            - Circularly increase the FRONT index by 1
+            - for the last element, reset the values of FRONT and REAR to -1
+
+        Check for full queue has a new additional case:
+            Case 1: FRONT = 0 && REAR == SIZE - 1
+            Case 2: FRONT = REAR + 1
+            - Case 2 happens when REAR starts from 0 due to circular increment
+              and when its value is just 1 less than FRONT, the queue is full.
+    
+    Circular Queue Implementations: Check website
+
+    Circular Queue Complexity Analysis:
+        - The complexity of the enqueue and dequeue operations of a circular queue is
+          O(1) for array implementations.
+    
+    Applciations of Circular Queue:
+        - CPU scheduling
+        - Memory management
+        - Traffic management
+
+
+Priority Queue:
+    - A special type of queue in which each element is associated with a priority value.
+    - Elements are served on the basis of their priority, higher priority elements are served first.
+    - If elements of the same priority occur, they are served according to their order in the queue.
+
+    Assigning Priority Value:
+        - Generally, value of element itself is considered for assigning the priority.
+        Example:
+            - Elements with highest value is considered the highest priority element.
+            - Elements with lowest value can also be considered as highest priority element.
+        - Can set priorities according to our needs.
+    
+    Difference between Priority Queue and Normal Queue:
+        - In a queue, FIFO is implemented
+        - In a priority queue, values are removed on the basis of priority.
+        - Element with the highest priority is removed first.
+    
+    Implementation of Priority Queue:
+        - Priority queue can be implemented using an array, a linked list, a heap data structure, or a binary search tree.
+        - Heap data structure provides an efficient implementation of priority queues.
+        - Max-heap is implemented.
+
+        1. Inserting an element into the priority queue
+            - Insert new element at the end of the tree
+            - Heapify tree
+            Example: 
+                If there is no node, create a new node
+                Else (a node is already present), insert the newNode at the end (last node from left to right)
+                Heapify the array
+            - For min-heap, the above algorithm is modified so that parentNode is always smaller than newNode
+        
+        2. Deleting an element from the priority queue
+            - Select element to be deleted
+            - Swap it with last element
+            - Remove last element
+            - Heapify tree
+            Example:
+                - If nodeToBeDeleted is the leafNode, remove the node
+                - Else, swap nodeToBeDeleted with the lastLeafNode, remove noteToBeDeleted
+                - Heapify the array
+            - For min-heap, the above algorithm is modified so that both childNodes are smaller than currentNode
+        
+        3. Peeking from the priority queue (min/max)
+            - Peek operation returns the maximum element from Max Heap or minimum element from Min Heao without deleting the node.
+            - For both Max-heap and min-heap:
+                return rootNode
+        
+        4. Extract-Max/Min from the Priority Queue
+            - Extarct-max returns the max value after removing it from max-heap and vice versa for min-heap.
+        
+        Check Python Implementation in code files.

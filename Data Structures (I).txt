@@ -235,3 +235,57 @@ Priority Queue:
             - Extarct-max returns the max value after removing it from max-heap and vice versa for min-heap.
         
         Check Python Implementation in code files.
+
+Deque Data Structure:
+    https://www.programiz.com/dsa/deque
+    - Deque or Double Ended Queue is a type of queue in which insertion and removal of elements can either be performed
+      from the front of the rear.
+    - It does not follow the FIFO rule (First In First Out)
+
+    Types of Deque:
+        - Input Restrictred Deque: Input is restricted at a single end but allows deletion at both the ends.
+        - Output Restricted Deque: Output is restricted at a single end but allows insertion at both the ends.
+    
+    Operations on a Deque:
+        1. Take an array (deque) of size n.
+        2. Set two pointers at the first position and set front = -1 and rear = 0
+
+        1. Insert at the Front
+            1. Check the position of front
+            2. If front < 1, reinitialize front = n - 1 (last index)
+            3. Else, decrease front by 1
+            4. Add the new key 5 into array[front]
+        
+        2. Insert at the Rear
+            1. Check if the array is full.
+            2. If the deque is full, reinitialze rear = 0
+            3. Else, increase rear by 1
+            4. Add the new key 5 into array[rear]
+
+        3. Delete from the Front
+            1. Check if the deque is empty.
+            2. If the deque is empty (front = -1), deletion cannot be performed (underflow condition)
+            3. If the deque has only one element (front = rear), set front = -1 and rear = -1
+            4. Else if front is at the end (front = n - 1), set go to the front front = 0
+            5. Else, front = front + 1
+        
+        4. Delete from the Rear
+            1. Check if the deque is empty
+            2. If the deque is empty (front = -1), deletion cannot be performed (underflow)
+            3. If the deque has only one element (front = rear), set front = -1 and rear = -1
+            4. Else if rear is at the front (rear = 0), set go to the front rear = n - 1
+            5. Else, rear = rear - 1
+        
+        5. Check Empty: This operation checks if the deque is empty. If front = -1, the deque is empty.
+        6. Check Full: This operation checks if the deque if full. If front = 0 and rear = n - 1,
+                       OR front = rear + 1, the deque is full.
+    
+    Deque Implementation: Check implementation example files.
+
+    Time Complexity: The time complexity of all the above operaitons is constant i.e. O(1).
+
+    Applications of Deque Data Structure:
+        1. In undo operations on software.
+        2. To store history in browsers.
+        3. For implementing both stacks and queues.
+        

@@ -1,0 +1,86 @@
+Linked List Data Structure:
+    - A linear data structrue that includes a series of connected nodes.
+    - Each node stores the data and the address of the next node.
+    Example: Head -> data|next -> data|next -> NULL
+    - Address of first node is called HEAD
+    - Last node is a NULL pointer
+    - Linked lists can be of multiple types:
+        - Singly
+        - Doubly
+        - Circular linked lists
+    - This article will focus on singly linked lists.
+    - Like a game of treasure hunt: each clue includes info about next clue.
+
+    Representation of Linked List:
+        - Each node consists of:
+            - A data item,
+            - An address of another node
+        - Wrap both the data item and the next node reference in a struct as:
+            struct node
+            {
+                int data;
+                struct node *next;
+            };
+        - Each struct node has a data item and a pointer to another struct node.
+        - Create a simple linked list with three items to understand how it works.
+            /* Initialize nodes */
+            struct node *head;
+            struct node *one = NULL;
+            struct node *two = NULL;
+            struct node *three = NULL;
+
+            /* Allocate memory */
+            one = malloc(sizeof(struct node));
+            two = malloc(sizeof(struct node));
+            three = malloc(sizeof(struct node));
+
+            /* Assign data values */
+            one->data = 1;
+            two->data = 2;
+            three->data=3;
+
+            /* Connect nodes */
+            one->next = two;
+            two->next = three;
+            three->next = NULL;
+
+            /* Save address of first node in head */
+            head = one;
+        - Power of linked list comes from ability to break chain and rejoin
+        Example: if you wanted to put an element 4 between 1 and 2:
+            1. Create a new struct node and allocate memory to it.
+            2. Add its data value as 4
+            3. Point its next pointer to the struct node containing 2 as the data value
+            4. Change the next pointer of "1" to the node we just created
+        - Doing something similar in an array would require shifting positions of elements.
+        - In python and java, linked lists can be implemented using classes.
+    
+    Linked List Utility:
+    - Linked lists are a great way to learn how pointers work.
+    - By learning how to manipulate linked lists,
+    - you can prepare to learn more advanced data structures like graphs and trees.
+
+    Linked List Implementation: check implementation examples
+
+    Linked List Complexity:
+        Time Complexity:
+            Search:
+                Worst Case: O(n)
+                Average Case: O(n)
+            Insert:
+                Worst Case: O(1)
+                Average Case: O(1)
+            Deletion:
+                Worst Case: O(1)
+                Average Case: O(1)
+        
+        Space Complexity: O(n)
+    
+    Linked List Applciations:
+        - Dynamic memory allocation
+        - Implemented in stack and queue
+        - In undo funcionality of softwares
+        - Hash tables, graphs
+
+Linked List Operations:
+    

@@ -236,6 +236,13 @@ Priority Queue:
         
         Check Python Implementation in code files.
 
+        Priority Queue Applications:
+            - Dijkstra's algorithm
+            - For implementing stack
+            - For load balancing and interrupt handling an operating system
+            - For data compression in Huffman code
+            
+
 Deque Data Structure:
     https://www.programiz.com/dsa/deque
     - Deque or Double Ended Queue is a type of queue in which insertion and removal of elements can either be performed

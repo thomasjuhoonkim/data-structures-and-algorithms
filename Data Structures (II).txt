@@ -83,4 +83,287 @@ Linked List Data Structure:
         - Hash tables, graphs
 
 Linked List Operations:
+    - There are various operations possible on linked lists.
+    Some operations:
+        - Traversal
+        - Insertion
+        - Deletion
+        - Search
+        - Sort
+    - Things to remember about linked lists
+        - head points to the first node of the linked list
+        - next pointer of the last node is NULL meaning the end has been reached
+    - Node structure of following linked lists:
+        struct node {
+            int data;
+            struct node *next;
+        };
+
+Traverse a Linked List
+    - Displaying contents of a linked list is simple
+    - Move temp node to the next one and display its contents
+    - When temp is NULL, we know that we have reached the end of the linked list
+      so we get out of the while loop.
+    struct node *temp = head;
+    printf("\n\nList elements are - \n");
+        while(temp != NULL) {
+        printf("%d --->",temp->data);
+        temp = temp->next;
+    }
+
+Insert Elements to a Linked List
+    - You can add elements to either the beginning, middle, or end of the linked list.
     
+    1. Insert at the beginning
+        - Allocate memory for a new node
+        - Store data
+        - Change next of new node to point to head
+        - Change head to point to recently created node
+        struct node *newNode;
+        newNode = malloc(sizeof(struct node));
+        newNode->data = 4;
+        newNode->next = head;
+        head = newNode;
+    
+    2. Insert at the End
+        - Allocate memory for a new node
+        - Store data
+        - Traverse to last node
+        - Change next of last node to recently created node
+        struct node *newNode;
+        newNode = malloc(sizeof(struct node));
+        newNode->data = 4;
+        newNode->next = NULL;
+
+        struct node *temp = head;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    
+    3. Insert at the Middle
+        - Allocate memeory and store dat afor new node
+        - Traverse to node just before the required position of new node
+        - Change next pointers to include new node in between
+        struct node *newNode;
+        newNode = malloc(sizeof(struct node));
+        newNode->data = 4;
+
+        struct node *temp = head;
+
+        for(int i=2; i < position; i++) {
+            if(temp->next != NULL) {
+                temp = temp->next;
+            }
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    
+Delete from a Linked List:
+    - You can delete from the beginning, end, or from a particular position.
+
+    1. Delete from beginning
+        - Point head to the second node
+        head = head->next;
+    
+    2. Delete from end
+        - Traverse to second last element
+        - Change its next pointer to null
+        struct node* temp = head;
+        while(temp->next->next!=NULL){
+            temp = temp->next;
+        }
+        temp->next = NULL;
+    
+    3. Delete from middle
+        - Traverse to element before the element to be deleted.
+        - Change next pointers to exlude the node from the chain.
+        for(int i=2; i< position; i++) {
+            if(temp->next!=NULL) {
+                temp = temp->next;
+            }
+        }
+        temp->next = temp->next->next;
+    
+    Search an Element on a Linked List:
+        - Make head as the current node
+        - Run a loop until the current node is NULL because the last element points to NULL.
+        - In each iteration, check if the key of the node is equal to item.
+          If it the key matches the item, return true otherwise return false.
+        // Search a node
+        bool searchNode(struct Node** head_ref, int key) {
+            struct Node* current = *head_ref;
+
+            while (current != NULL) {
+                if (current->data == key) return true;
+                current = current->next;
+            }
+            return false;
+        }
+    
+    Sort Elements of a Linked List:
+        - Use a simple sorting algorithm
+        - Bubble sort
+        - Sort the elements of a linked list in ascending order.
+        1. Make the head as the current node and create another node index for later use.
+        2. If head is null, return.
+        3. Else, run a loop till the last node (i.e NULL)
+        4. In each iteration, follow the following step 5-6.
+        5. Store the next node of current in index.
+        6. Check if the data of the current node is greater than the next node.
+           If it is greater, swap current and index.
+        // Sort the linked list
+        void sortLinkedList(struct Node** head_ref) {
+            struct Node *current = *head_ref, *index = NULL;
+            int temp;
+
+            if (head_ref == NULL) {
+                return;
+            } else {
+                while (current != NULL) {
+                    // index points to the node next to current
+                    index = current->next;
+
+                    while (index != NULL) {
+                        if (current->data > index->data) {
+                        temp = current->data;
+                        current->data = index->data;
+                        index->data = temp;
+                        }
+                        index = index->next;
+                    }
+                    current = current->next;
+                }
+            }
+        }
+
+    Linked List Operations Implementations: Check implemenetation files
+
+
+Types of Linked List - Singly linked, doubly linked, and circular
+    1. Singly Linked List
+    2. Doubly Linked List
+    3. Circular Linked List
+
+    Singly Linked List:
+        head -> data|next -> data|next -> NULL
+        struct node {
+            int data;
+            struct node *next;
+        }
+    
+    Doubly Linked List:
+        head|NULL <-> prev|data|next <-> prev|data|next <-> NULL
+        struct node {
+            int data;
+            struct node *next;
+            struct node *prev;
+        }
+
+    Circular Linked List:
+        - A circular linked list is a variation of a linked list in which the last element
+          is linked to the first element which forms a circular loop.
+        head -> data|next -> data|next -> head
+        - A circular linked list can be either singly linked or doubly linked
+            - For a singly linked list, next pointer of last item points to the first item
+            - In the doubly linked list, prev pointer of the first item points to the last item as well
+
+
+Hash Table:
+    https://www.programiz.com/dsa/hash-table
+    - Hash tables are a data structure that stores elements in key-value pairs where:
+        Key: unique integer that is used for indexing the values
+        Value: data that are associated with keys
+
+    Hashing (Hash Function):
+        - In a hash table, a new index is processed using the keys.
+        - The element corresponding to that key is stored in the index, this is called hashing.
+
+        - Let k be a key and h(x) be a hash function.
+        - Here, h(k) will give us a new index to store the element linked with k.
+        - Look at picture
+
+    Hash Collision:
+        - When the hash function generates the same index for multiple keys, there will be a conflict.
+        - Ambiguity on what will be stored in the index.
+        - This is called a hash collision
+        - You can resolve hash collisions using:
+            - Collision resolution by chaining
+            - Open addressing: linear/quadratic probing and double hashing
+        
+        1. Collision resolution by chaining:
+            - If the hash function produces the same index for multiple elements,
+              these elements are stored in the same index by using a doubly-linked list.
+            - If j is the slot for multiple elements, it contains a pointer to the head of the list of elements.
+            - If no element is present, j contains NIL
+            Pseoudocode for opeartions:
+                chainedHashSearch(T, k)
+                    return T[h(k)]
+                chainedHashInsert(T, x)
+                    T[h(x.key)] = x //insert at the head
+                chainedHashDelete(T, x)
+                    T[h(x.key)] = NIL
+        
+        2. Open addressing:
+            - Doesn't store multiple elemnts into the same slot.
+            - Each slot is either filled witha single key or left NIL.
+            
+            i. Linear Probing:
+                - Collision is resolved by checking the next slot
+                  h(k, i) = (h'(k) + i) mod m
+                  where 
+                    - i = {0, 1, ...}
+                    - h'(k) is a new hash function
+                - If a collision occurs at h(k, 0) then h(k, 1) is checked.
+                - In this way, the value of i is incremented linearly.
+                - The problem is when there is a cluster of filled spots surrounding the collsion
+                  This would increase the time required to perform operations on the hash table.
+            
+            ii. Quadratic Probing:
+                - Works similarly to linear probing but the space between the slots is increased
+                  (greater than one)
+                h(k, i) = (h(k) + c1*i + c*i^2) mod m
+                where,
+                    - c1 and c2 are positive auxiliary constants
+                    - i = {0, 1, ...}
+            
+            iii. Double Hashing:
+                - If a collision occurs after applying a hash function,
+                  another hash function is calculated for finding the next slot
+                h(k, i) = (h1(k) + ih2(k)) mod m
+    
+    Good Hash Functions:
+        - A good hash function may not prevent collisions completely however it can reduce the number of collisions
+
+        1. Division Method:
+            - If k is a key and m is the size of the hash table,
+              the hash function h() is calculated as:
+              h(k) = k mod m
+            Example:
+                - If the size of a hash table is 10 and k = 112 then
+                  h(k) = 112 mod 10 = 2.
+                - The value of m must not be the powers of 2.
+                - This is because the powers of 2 in binary format are 10, 100, 1000, ...
+                - WHen we find k mod m, we will always get the lower order p-bits.
+                if m = 22, k = 17, then h(k) = 17 mod 22 = 10001 mod 100 = 01
+                if m = 23, k = 17, then h(k) = 17 mod 22 = 10001 mod 100 = 001
+                if m = 24, k = 17, then h(k) = 17 mod 22 = 10001 mod 100 = 0001
+                if m = 2p, then h(k) = p lower bits of m
+        
+        2. Multiplication Method
+            h(k) = [m(kA mod 1)]
+            where,
+                - kA mod 1 gives the fractional part kA
+                - [ ] gives the floor value (floor operator)
+                - A is any constant. The value of A lies between 0 and 1
+                  But an optimal choice will be approx. (sqrt(5) - 1) / 2
+        
+        3. Universal Hashing
+            - The hash function is chosen at random independant of keys
+    
+    Hash Table Implementations: Check implementation files
+
+    Applications of Hash Tables:
+        - Contant time lookup and insertion is required
+        - Cryptographic applications
+        - Indexing data is required

@@ -367,3 +367,92 @@ Hash Table:
         - Contant time lookup and insertion is required
         - Cryptographic applications
         - Indexing data is required
+
+
+Heap Data Structure:
+    - Complete binary tree that satisfied the heap property
+    - Heap property is where any given node is:
+        - Always greater than its child node/s and the key of the root node is the largest among all other nodes.
+          This peropert is called the max heap property
+        - Always smaller than the child node/s and the key of the root node is the smallest among all other nodes.
+          This property is called the min heap property.
+    
+    Heap Operations:
+        Heapify:
+            - Process of creating a heap data structure from a binary tree.
+            - Used to create a min-heap or max-heap
+            - Data organization into a binary tree format.
+            1. Let the input array be
+                3 9 2 1 4 5
+                0 1 2 3 4 5
+            2. Create a complete binary tree from the array
+                      3(0)
+                  9(1)    2(2)
+                1(1) 4(4)    5(5)
+            3. Start from the first index of non-leaf node whose index is given by n/2 - 1.
+            4. Set current element i as largest.
+            5. The index of left child is given by 2i + 1 and the right child is given by 2i + 2.
+              If leftCHild is greater than current Element, set leftChildIndex as largest.
+              If rightChild is greater than element in largest, set rightChildIndex as largest.
+            6. Swap largest with currentElement
+            7. Repeat steps 3-7 until the subtrees are also heapified.
+
+            Heapify(array, size, i)
+                set i as largest
+                leftChild = 2i + 1
+                rightChild = 2i + 2
+                
+                if leftChild > array[largest]
+                    set leftChildIndex as largest
+                if rightChild > array[largest]
+                    set rightChildIndex as largest
+
+                swap array[i] and array[largest]
+            
+            MaxHeap(array, size)
+                loop from the first index of non-leaf node down to zero
+                    call heapify
+
+            For min-heap, leftChild and rightChild must be larger than the parent for all nodes.
+
+        Insert Element into Heap:
+            If there is no node, 
+                create a newNode.
+            else (a node is already present)
+                insert the newNode at the end (last node from left to right.)
+            heapify the array
+
+            1. Insert the new element at the end of the tree.
+            2. Heapify the tree.
+            For min heap, the above algorithm is modified so taht parentNode is always smaller than newNode
+        
+        Delete Element from Heap:
+            If nodeToBeDeleted is the leafNode
+                remove the node
+            Else swap nodeToBeDeleted with the lastLeafNode
+                remove noteToBeDeleted
+            heapify the array
+
+            1. Select the element to be deleted.
+            2. Swap it with the last element.
+            3. Remove the last element
+            4. Heapify the tree.
+            For min heap, above algorithm is modified so that both childNodes are greater than currentNode
+
+        Peak (Find max/min):
+            - Peek operation returns the maximum element from Max Heap
+            or minimum element from Min Heap without deleting the node.
+
+            For both max heap and min heap:
+                return rootNode
+            
+        Extract Max/Min:
+            - Extract max returns the node with maximumm value after removing it from a max heap
+            - Extract min returns the node with minimum value after removing it from a min heap
+        
+    Heap Implementations: check implementations file
+
+    Heap Data Structure Applications:
+        - Heap is used while implementing a priority queue.
+        - Dijkstra's Algorithm
+        - Heap Sort

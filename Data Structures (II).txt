@@ -456,3 +456,78 @@ Heap Data Structure:
         - Heap is used while implementing a priority queue.
         - Dijkstra's Algorithm
         - Heap Sort
+
+
+Fibonacci Heap:
+    https://www.programiz.com/dsa/fibonacci-heap
+    - A Fibonacci heap is a data structure that consists of a collection of trees
+      which follow min heap or max heap property.
+    - A node can have more than two children or no children at all.
+    - It has more efficient heap operations than that supported by the binomial and binary heaps.
+    - It's called fibonacci heap because the trees are constructed in a way
+      such that a tree of order n has at least Fn+2 nodes in it, where Fn+2 is the (n+2)th Fibonacci number
+    
+    Properties of a Fibonacci Heap:
+        1. It is a set of min-heap-ordered trees (The parent is always smaller than the children)
+        2. A pointer is maintained at the minimum element node
+        3. It consists of a set of marked nodes (Decrease key operation)
+        4. The trees within a Fibonacci heap are unordered but rooted (A special node is singled out)
+    
+    Memory Representation of the Nodes in a Fibonacci Heap:
+        - The roots of all the trees are linked together for faster access.
+        - The child nodes of a parent node are connected to each other through a circular doubly linked list.
+        Two main advantages of using a circular doubly linked list:
+            1. Deleting a node from the tree takes O(1) time.
+            2. The concatenation of two such lists takes O(1) time.
+        Find Min: the minimum element is always given by the min pointer.
+        Union:
+            1. Concatenate the roots of both the heaps.
+            2. Update min by selectin a minimum key from the new root lists.
+        Extract Min:
+            - Most important operation on a fibonacci heap.
+            - The node with minimum value is removed from the heap and the tree is re-adjusted.
+            1. Delete the min node.
+            2. Set the min-pointer to the next root in the root list.
+            3. Create an array of size equal to the maximum degree of the trees in the heap before deletion.
+            4. Do the following until there are no multiple roots with the same degree.
+                5. Map the degree of current root(min-pointer) to the degree in the array.
+                6. Map the degree of next root to the degree in array.
+                7. If there are more than two mappings for the same degree, then apply union operation
+                   to those roots such that the min-heap property is maintained (i.e. the minimum is at the root)
+    
+    Complexities:
+        Insertion: O(1)
+        Find Min: O(1)
+        Union: O(1)
+        Extract Min: O(log n)
+        Decrease Key: O(1)
+        Delete Node: O(log n)
+    
+    Fibonacci Heap Applications:
+        1. To improve the asymptotic running time of Dijkstra's algorithm
+    
+
+Decrease Key and Delete Node Operations on a Fibonacci Heap:
+    1. Decrease a key: decreases the value of the key to any lower value
+    2. Delete a node: deletes the given node
+
+    Decreasing a key:
+        Use following functions:
+            Decrease-key:
+                1. Select the node to be decreased, x, and change its value to the new value k.
+                2. If the parent of x, y, is not null and the key of parent is greater than that of
+                   the k then call Cut(x) and Cascading-Cut(y) subsequently.
+                3. If the key of x is smaller than the key of min, then mark x as min.
+            Cut:
+                1. Remove x from the current position and add it to the root list.
+                2. If x is marked, then mark it as false.
+            Cascading-Cut:
+                1. If the parent of y is not null then follow the following steps.
+                2. If y is unmarked, then mark y.
+                3. Else, call Cut(y), and Cascading-Cut(parent of y).
+        
+    Deleting a Node:
+        - This process makes of of decrease-key and extract-min operations.
+        1. Let k be the node to be deleted.
+        2. Apply decrease-key operation to decrease the value of k to the lowest possible value (i.e -infinite)
+        3. Apply extract-min operation to remove this node.

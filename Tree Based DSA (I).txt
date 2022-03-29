@@ -1,0 +1,111 @@
+Tree Data Structure:
+    https://www.programiz.com/dsa/trees
+    - A tree is a nonolinear hierarchical data structure that consists of nodes connected by edges.
+
+    Why Tree Data Structures?:
+        - Other data structures such as arrays, linked lists, stacks, and queues are linear
+          data structures that store data sequentially.
+        - In order to perform any operation in a linear data structure, the time complexity
+          increases with the increase in data size.
+        - But, it is not acceptable in today's computational world.
+        - Different tree data structures allow quicker and easier access to the data
+          as it is a non-linear data structure.
+    
+    Tree Terminologies:
+        Node:
+            - A node is an entity that contains a key or value and pointers to its child nodes.
+            - The last nodes of each path are called leaf nodes or external nodes that do not
+              contain a link/pointer to child nodes.
+            - The node having at least a child node is called an internal node.
+        Edge:
+            - A link between any two nodes.
+        Root:
+            - It is the topmost node of a tree.
+        Height of a Node:
+            - The height of a node is the number of edges from the node to the deepest leaf
+              (the longest path from the node to a leaf node).   
+        Depth of a Node:
+            - The depth of a node is the number of edges from the root to the node.
+        Height of a Tree:
+            - The height of a Tree is the ehight of the root node or the depth of the deepest node
+        Degree of a Node:
+            - The degree of a node is the total number of branches of that node.
+        Forest:
+            - A collection of disjoint trees is called a forest.
+            - You can create a forest by cutting the root of a tree.
+    
+    Types of Tree:
+        1. Binary Tree
+        2. Binary Search Tree
+        3. AVL Tree
+        4. B-Tree
+    
+    Tree Traversal:
+        - In order to perform any operation on a tree, a specific node must be reached.
+        - The tree traversal algorithm helps in visiting a required node in the tree.
+    
+    Tree Applications:
+        - Binary Search Trees(BSTs) are used to quickly check whether an element is
+          present in a set or not.
+        - Heap is a kind of tree that is used for heap sort.
+        - A modified version of a tree called Tries is used in modern routers to
+          store routing information.
+        - Most popular databases use B-Trees and T-Trees, which are variants of the
+          the tree structure we learned above to store their data.
+        - Compilers use a syntax tree to validate the syntax of every program you write.
+
+==========================================================================================
+
+Tree Traversal - inorder, preorder, and postorder:
+    https://www.programiz.com/dsa/tree-traversal
+    - Traversing a tree means visiting every node in the tree.
+    - You might for instance, want to add all the avlues in the tree or find the largest one.
+    - For all these operations, you will need to visit each node of the tree.
+    - Linear data structures liek arrays, stacks, queues, and linked lists ave only one way
+      to read the data.
+    - But heirarchical data structure like a tree can be traversed in different ways.
+    Example:
+        - Starting from top, left to right: 1 -> 12 -> 5 -> 6 -> 9
+        - Starting from bottom, left to right: 5 -> 6 -> 12 -> 9 -> 1
+        - Although this process is somewhat easy, it doesn't respect the heirarchy of the tree,
+          only the depth of the nodes.
+    - Instead traversal methods that take into account the basic structure of a tree are used.
+        struct node {
+            int data;
+            struct node* left;
+            struct node* right;
+        }
+    - The struct node pointed to by left and right might have other left and right children
+      so we should think of them as sub-trees instead of sub-nodes.
+    According to this structure, every tree is a combination of
+        - A node carrying data
+        - Two subtrees
+    - Our goal is to visit each node, we need to visit all the nodes in the subtree,
+      visit the root node and visit all the nodes in the right subtree as well.
+    - Depending on the order in which this is done, there can be three types of traversal.
+
+    Inorder traversal:
+        1. First, visit all the nodes in the left subtree
+        2. Then the root node
+        3. Visit all the nodes in the right subtree.
+        inorder(root->left)
+        display(root->data)
+        inorder(root->right)
+    
+    Preorder traversal:
+        1. Visit root node
+        2. Visit all the nodes in the left subtree
+        3. Visit all the nodes in the right subtree
+        display(root->data)
+        preorder(root->left)
+        preorder(root->right)
+
+    Postorder traversal:
+        1. Visit all the nodes in the left subtree
+        2. Visit all the nodes in the right subtree
+        3. Visit the root node
+        postorder(root->left)
+        postorder(root->right)
+        display(root->data)
+    
+    

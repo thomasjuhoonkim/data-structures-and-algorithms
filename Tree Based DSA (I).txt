@@ -108,4 +108,59 @@ Tree Traversal - inorder, preorder, and postorder:
         postorder(root->right)
         display(root->data)
     
-    
+====================================================================================
+
+Binary Tree:
+	https://www.programiz.com/dsa/binary-tree
+    - A binary tree data structure is a tree data structure in which each parent can
+        have at most two children.
+    - Each binary tree consists of three items:
+        - A data item
+        - Address of left child
+        - Address of right child
+	
+	Types of Binary Tree:
+		1. Full Binary Tree
+			- A special type of binary tree in which every
+		   	  parent node/internal node has either two or no children.
+		
+		2. Perfect Binary Tree
+			- Every internal node has exactly two child nodes and all the leaf
+			  nodes are at the same level.
+		
+		3. Complete Binary Tree
+			- Similar to a full binary tree but with two major differences
+			1. Every level must be completely filled
+			2. All the leaf elements must lean towards the left
+			3. The last leaf element might not have a right sibling
+			   i.e. a complete binary tree doesn't have to be a full binary tree
+		
+		4. Degenerate or Pathological Tree
+			- Is the tree having a single child either left or right.
+		
+		5. Skewed Binary Tree
+			- A pathological/degenerate tree in which the tree is either dominated by the
+			  left nodes or the right nodes. Thus, there are two types of skewed binary tree:
+			  Left-Skewed Binary Tree and Right-Skwered Binary Tree
+		
+		6. Balanced Binary Tree
+			- Difference between the height of the left and the right subtree for each node
+			  is either 0 or 1.
+	
+	Binary Tree Representation:
+		- A node of a binary tree is represented by a structure containing a data part
+		  and two pointers to other structures of the same type.
+			struct node
+			{
+				int data;
+				struct node *left;
+				struct node *right;
+			};
+	
+	Binary Tree Example: Find in examples
+
+	Binary Tree Applications:
+		- For easy and quick access to data
+		- In router algorithms
+		- To implement heap data structure
+		- Syntax Tree

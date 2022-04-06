@@ -70,3 +70,145 @@ B-tree:
 
 ========================================================================================
 
+Insertion into a B-tree:
+	- Inserting an element on a B-tree consists of two events:
+		- Searching the appropriate node to insert the element and
+		  splitting hte node if required.
+	- Insertion operation always takes place in the bottom-up approach.
+	Insertion Operation:
+		1. If the tree is empty, allocate a root node and insert the key.
+		2. Update the allowed number of keys in the node.
+		3. Search the appropriate node for insertion.
+		4. If the node is full, follow the steps below.
+		5. Insert the elemtns in increasing order.
+		6. Now, there are elements greater than its limit. So, split at the median
+		7. Push the median key upwards and make the left keys as a left child
+		   and the right keys as a right child.
+		8. If the node is not full, follow the steps below.
+		9. Insert the node in increasing order.
+	
+	Insertion Example: check website
+
+	Algorithm for Inserting an Element:
+		BreeInsertion(T, k)
+		r  root[T]
+		if n[r] = 2t - 1
+			s = AllocateNode()
+			root[T] = s
+			leaf[s] = FALSE
+			n[s] <- 0
+			c1[s] <- r
+			BtreeSplitChild(s, 1, r)
+			BtreeInsertNonFull(s, k)
+		else BtreeInsertNonFull(r, k)
+		BtreeInsertNonFull(x, k)
+		i = n[x]
+		if leaf[x]
+			while i ≥ 1 and k < keyi[x]
+				keyi+1 [x] = keyi[x]
+				i = i - 1
+			keyi+1[x] = k
+			n[x] = n[x] + 1
+		else while i ≥ 1 and k < keyi[x]
+				i = i - 1
+			i = i + 1
+			if n[ci[x]] == 2t - 1
+				BtreeSplitChild(x, i, ci[x])
+				if k &rt; keyi[x]
+					i = i + 1
+			BtreeInsertNonFull(ci[x], k)
+		BtreeSplitChild(x, i)
+		BtreeSplitChild(x, i, y)
+		z = AllocateNode()
+		leaf[z] = leaf[y]
+		n[z] = t - 1
+		for j = 1 to t - 1
+			keyj[z] = keyj+t[y]
+		if not leaf [y]
+			for j = 1 to t
+				cj[z] = cj + t[y]
+		n[y] = t - 1
+		for j = n[x] + 1 to i + 1
+			cj+1[x] = cj[x]
+		ci+1[x] = z
+		for j = n[x] to i
+			keyj+1[x] = keyj[x]
+		keyi[x] = keyt[y]
+		n[x] = n[x] + 1
+	
+	B-tree implementation example: check example files
+
+=====================================================================================
+
+Deletaion from a B-tree:
+	- Deleting an element on a B-tree consists of three main events:
+		- Searching the node where the key to be deleted exists
+		- Deleting the key and balancing the tree if required.
+	- While deleting a tree, a condition called underflow may occur.
+	- Underflow occurs when a node contains less than the
+	  minimum number of keys it should hold.
+	Terms to be understood:
+		1. Inorder Predecessor
+			- The largest key on the left child of a node is called
+			  its inorder predecessor.
+		2. Inorder Successor
+			- The smallest key on the right hcild of a node is called
+			  its inorder successor.
+	Deletion Operation:
+		- One must know these facts about a B tree of degree m.
+		1. A node can have a maximum of m children (i.e. 3)
+		2. A node can contain a maximum of m - 1 keys. (i.e. 2)
+		3. A node should have a minimum of [m/2] children (i.e. 2)
+		4. A node (except root node) should contain a minimum of [m/2] - 1 keys. (i.e. 1)
+		Three main cases for deltion opeartino in a B tree:
+			Case 1:
+				- The key to be deleted lies in the leaf.
+				1. The deletion of the key does not violate the property of the
+				   minimum number of keys a node should hold.
+				2. THe deletion of the key violates the property of the
+				   minimum number of keys a node should hold. In this case, we borrow a key
+				   from its immediate neighboring subling node in the order of left to right.
+
+				   First, visit the immediate left sibling. If the left sibling node has
+				   more than a minimum number if keys, then borrow a key from this node.
+
+				   Else, check to borrow from the immediate right sibling node.
+
+				   If both the immediate subling nodes already have a minimum
+				   number of keys, then merge the node with either the left sibling node
+				   or the right sibling node.
+				   This merging is done through the parent node.
+			
+			Case 2:
+				- If the key to be deleted lies in the internal node,
+				  the following cases occur
+				1. The internal node, which is deleted, is replaced by an inorder predecessor
+				   if the left child has more than the minimum number of keys
+				2. The internal node, which is deleted, is replaced by an inorder successor
+				   if the right child has more than the minimum number of keys.
+				3. If either child has exactly a minimum number of keys then,
+				   merge the left and the right children.
+				   After merging if the parent node has less than the minimum
+				   number of keys then, look for the siblings as in Case 1.
+			
+			Case 3:
+				- In this case, the height of the tree shrinks.
+				- If the target key lies in an internal node, and the deletion of the key
+				  leads to fewer number of keys in the node (i.e. less than the minimum required)
+				  then look for the inorder predecessor and the inroder successor.
+				- If both children contain a minimum number of keys then, borrowing cannot take place.
+				- This leads to Case 2(3) i.e.e merging the children.
+				- Look for the sibling to borrow a key.
+				- But, if the subling also has only a minimum number of keys then,
+				  merge the node with the sibling along with parent.
+				- Arrange the children accordingly (increasing order).
+
+	Deletion in a B-tree implementation example: example files
+
+	Deletion Complexity:
+		Best case Time complexity: Theta(log n)
+		Average case Space complexity: Theta(n)
+		Worst case Space complexity: Theta(n)
+
+==============================================================================
+

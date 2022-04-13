@@ -337,3 +337,168 @@ Deletion from a B+ Tree:
 
 =====================================================================================================================================
 
+Red-Black Tree:
+	- Self-balancing binary search tree in which each node contains an extra bit
+	  for denoting the color of the node, either red or black.
+	Properties:
+		1. Red/Black Property: every node is colored, either red or black
+		2. Root Property: the root is black
+		3. Leaf property: every leaf is (NIL) is black.
+		4. Red Property: if a red node has children, then the children are always black
+		5. Depth Property: for each node, any simple path from this node to any of its descendant leaf has
+		   the same black-depth (the number of black nodes)
+	
+	Each node has the follwing attributes:
+		- color
+		- key
+		- leftChild
+		- rightChild
+		- parent (except root node)
+	
+	How does the red-black tree maintian the property of self-balancing?:
+		- The red-black color is meant for balancing the tree.
+		- The limitations put on the node colors ensure that any simple path from the root to a leaf
+		  is not more than twice as long as any other such path.
+		- It helps in maintaining the self-balancing property if the red-black tree.
+	
+	Operations on a Red-Black Tree:
+		Rotating the subtrees in a Red-Black Tree:
+			- The positions of the nodes of a subtree are interchanged.
+			- Used for maintaing the properties of a red-black tree when they are violated by other operations
+			  such as insertion and deletion.
+			Left Rotate:
+				- The arrangement of the nodes on the right is transformed into the arrangements on the left node.
+				- Check website
+			Right Rotate:
+				- The arrangement of the nodes on the left is transformed into the arrangements on the right node.
+				- Check website
+			Left-Right and Right-Left Rotate:
+				- In a left-right rotation, the arrangements are first shifted to the left and then to the right.
+				- Check website
+				- In a right-left rotation, the arrangements are first shifted to the right and then to the left.
+				- Check website
+			
+		Inserting an element into a Red-Black Tree:
+			- While inserting a new node, the new node is always inserted as a RED node.
+			- AFter insertion of a new node, if the tree is violating the peroperties of a red-black tree,
+			  perform the following operations:
+				1. Recolor
+				2. Rotation
+			
+			Algorithm to insert a node:
+				1. Let y be the leaf (ie. NIL) and x be the root of the tree.
+				2. Check if the tree is empty (ie. whether x is NIL). If yes, insert newNode as a root node
+				   and color it black.
+				3. Else, repeat steps following steps until leaf(NIL) is reached.
+					a. Compare newKey with rootKey.
+					b. If newKey is greater than rootKey, traverse through the right subtree.
+					c. Else traverse through the left subtree.
+				4. Assign the parent of the leaf as a parent of newNode.
+				5. If leafKey is greater than newKey, make newNode as rightChild.
+				6. Else, make newNode as leftChild.
+				7. Assign NULL to the left and rightChild of newNode.
+				8. Assign RED color to newNode.
+				9. Call InsertFix-algorithm to maintain the property of red-black tree if violated.
+			
+			Why are newly inserted nodes always red in a red-black tree?:
+				- Inserting a red node does not violate the depth property of a red-black tree.
+				- If you attach a red node to a red node, then the rule is violated but it is easier to fix this problem
+				  than the propblem introduced by violating the depth property.
+			
+			Algorithm to maintain red-black property after insertion:
+				- This algorithm is used for maintaing the property of a red-black tree is the insertion of a newNode
+				  violates this property.
+				1. Do the following while the parent of newNode p is RED.
+				2. If p is the left child of grandParent gP of z, do the following:
+					Case-I:
+						a. If the color of the right child of gP of z is RED, set the color of both the children of gP
+						   as BLACK and the color of gP as RED.
+						b. Assign gP to newNode.
+					Case-II:
+						c. Else if newNode is the right child of p then, assign p to newNode.
+						d. Left-Rotate newNode.
+					Case-III:
+						e. Set color of p as BLACK and color of gP as RED.
+						f. Right-Rotate.
+				3. Else, do the following:
+					a. If the color of the elft child of gP of z is RED, set the color of both
+					   the children of gP as BLACK and the color of gP as RED.
+					b. Assign gP to newNode
+					c. Else if newNode is the left child of p then, assign p to newNode and Right-Rotate newNode.
+					d. Set color of p as BLACK and color of gP as RED.
+					e. Left-Rotate gP
+				4. Set the root of the tree as BLACK
+		
+		Deleting an element from a Red-Black Tree:
+			- This opeartion removes a node from the tree, After deleting a node,
+			  the red-black property is maintained again.
+			
+			Algorithm to delete a node:
+				1. Save the color of nodeToBeDeleted in originalColor
+				2. If the left child of nodeToBeDeleted is NULL
+					a. Assign the right childof nodeToBeDeleted to x.
+					b. Transplant nodeToBeDeleted with x.
+				3. Else if the right child of nodeToBeDeleted is NULL
+					a. Assign the left child of nodeToBeDeleted into x.
+					b. Transplant nodeToBeDeleted with x.
+				4. Else
+					a. Assign the minimum of right subtree of nodeToBeDeleted into y.
+					b. Save the color of y in originalColor
+					c. Assign the rightChild of y into x
+					d. If y is a child of nodeToBeDeleted, then set the parent of x as y.
+					e. Else, transplant y with rightChild of y.
+					f. Transplant nodeToBeDeleted with y
+					g. Set the color of y with originalColor
+				5. If the originalColor is BLACK, call DeleteFix(x)
+			
+			Algorithm to maintain Red-Black property after deletion:
+				- This algorithm is implemented when a black node is deleted because it violates
+				  the black depth property of the red-black tree.
+				- This violation is corrected by assuming that node x (which is occupuing y's original position)
+				  has an extra black.
+				- It is either double black or black and red. This violates the red-black properties.
+				- However, the color attribute of x is not changed rather the extra black is represented in x's
+				  pointing to the node.
+				The extra black can be removed if:
+					1. It reaches the root node.
+					2. If x points to a red-black node. In this case, x is colored black.
+					3. Suitable rotations and recoloring are performed.
+				
+				The following algorithm retains the properties of a red-black tree.
+					1. Do the following until the x is not the root of the tree and the color of x is BLACK
+					2. If x is the left child of its parent then,
+						a. Assign w to the sibling of x
+						b. If the right child of parent of x is RED,
+							Case-I:
+								a. Set the color of the right child of the parent of x as BLACK.
+								b. Set the color of the parent of x as RED
+								c. Left-Rotate the parent of x
+								d. Assign the rightChild of the parent of x to w
+						c. Else if the color of the rightChild of w is BLACK
+							Case-II:
+								a. Set the color of w as RED
+								b. Assign the parent of x to x
+						d. Else if the color of the rightChild of w is BLACk
+							Case-III:
+								a. Set the color of the leftCHild of w as BLACK
+								b. Set the color of w as RED
+								c. Right-Rotate w
+								d. Assign the rightChild of the parent of x to w
+						e. If any of the above cases do not occur,
+							Case IV:
+								a. Set the color of w as the color of the parent of x.
+								b. Set the color of the parent of x as BLACK
+								c. Set the color of the right child of w as BLACK
+								d. Left-Rotate the parent of x.
+								e. Set x as the root of the tree
+					3. Else the same as above with right changed to left and vice versa
+					4. Set the color of x as BLACK
+	Red-Black Tree Implementation: Example files
+
+	Red-Black Tree Applications:
+		- To implement finite maps
+		- To implement Java packages: java.util.TreeMap and java.util.TreeSet
+		- To implement Standard Template Libraries (STL) in C++: multiset, map, multimap
+		- In Linux Kernel
+
+===========================================================================================================

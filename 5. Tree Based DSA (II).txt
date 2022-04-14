@@ -502,3 +502,71 @@ Red-Black Tree:
 		- In Linux Kernel
 
 ===========================================================================================================
+
+Insertion in a Red-Black Tree:
+	https://www.programiz.com/dsa/insertion-in-a-red-black-tree
+	- A Red-Black tree is a self-balancing search tree in which each node contains an extra bit
+	  for denoting the color of the node, either red or black.
+	- While inserting a new node, the new node is always inserted as a RED node.
+	- After insertion of a new node, if the tree is violating the properties of the red-black tree
+	  then, we do the following operations.
+	  	1. Recolor
+		2. Rotation
+	
+	Algorithm to Insert a New Node: check website
+		1. newNode
+		2. Let y be the leaf (ie. NIL) and x be the root of the tree.
+		   The new node is inserted in the following tree.
+		3. Check if the tree is empty (ie. whether x is NIL). If yes, insert a newNode as a root node
+		   and color it black.
+		4. Else, repeat steps following steps until leaf (NIL) is reached.
+			a. Compare newKey with rootKey
+			b. If newKey is greater than rootKey, traverse through the right subtree.
+			c. Else traverse through the left subtree.
+		5. Assign the parent of the leaf as parent of newNode.
+		6. If leafKey is greater than newKey, make newNode as rightChild.
+		7. Else, make newNode as leftChild
+		8. Assign NULL to the left and rightChild of newNode
+		9. Assign RED color to newNode
+		10. Call InsertFix-algorithm to maintain the property of red-black tree if violated.
+	
+	Why are newly inserted nodes always red in a red-black tree?:
+		- This is because inserting a red node does not violate the depth property
+		  of a red-black tree.
+		- If you attach a red node to a red node, then the rule is violated but it is easier to fix
+		  this problem than the problem invented by violating the depth property.
+		
+	Algorithm to Maintain Red-Black Property After Insertion
+		- This algorithm is used for maintaining the property of a red-black tree if insertion of a
+		  newNode violates this property.
+		1. Do the following until the parent of newNode p is RED.
+		2. If p is the left child of grandParent gP of newNode, do the following:
+			Case-I:
+				a. If the color of the right child of gP of newNode is RED, set the color of both
+				   the chilren of gP as BLACK and the color of gP as RED.
+				b. Assign gP to newNode.
+			Case-II:
+				c. (Before moving on to this step, while loop is checked.
+				    If conditions are not satisfied, the loop is broken)
+					Else if newNode is the right child p then, assign p to newNode.
+				d. Left-Rotate newNode.
+			Case-III:
+				e. (Before moving on to this step, while loop is checked.
+					If conditions are not satisfied, the loop is broken)
+					Set color of p as BLACK and color of gP as RED.
+				f. Right-Rotate gP
+		3. Else, do the following.
+			a. If the color of the left child of gP of z is RED, set the color of both
+			   the children of gP as BLACK and the color of gP as RED.
+			b. Assign gP to newNode
+			c. Else if newNode is the left child of p then, assign p to newNode and Right-Rotate newNode
+			d. Set color of p as BLACK and color of gP as RED.
+			e. Left-Rotate gP
+		4. (This step is perforemd afte coming out of the while loop)
+		   Set the root of the tree as BLACK.
+		5. Final Tree:
+	
+	Red-Black Tree Insertion Implementation Example: Check example files
+
+=========================================================================================================
+

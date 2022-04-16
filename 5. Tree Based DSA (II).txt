@@ -570,3 +570,73 @@ Insertion in a Red-Black Tree:
 
 =========================================================================================================
 
+Deletion From a Red-Black Tree:
+	https://www.programiz.com/dsa/deletion-from-a-red-black-tree
+	- Deleting a node may or may not disrupt the red-black properties of a red-black tree.
+	- If this action violates the red-black properties of a red-black tree,
+	  a fixing algorithm is used to regain the red-black properties.
+	
+	Deleting an element from a Red-Black Tree:
+		- This operation removes a node from the tree.
+		- After deleting a node, the red-black property is maintained again.
+		1. Let the nodeToBeDeleted be: check website
+		2. Save the color of nodeToBeDeleted in originalColor
+		3. If the left child of nodeToBeDeleted is NULL
+			a. Assign the right child of nodeToBeDeleted to x.
+			b. Transplant nodeToBeDeleted with x.
+		4. Else if the right hcild of nodeToBeDeleted is NULL
+			a. Assign the left child of nodeToBeDeleted into x.
+			b. Transplant nodeToBeDeleted with x.
+		5. Else
+			a. Assign the minimum of right subtree of nodeToBeDeleted into y.
+			b. Save the color of y in originalColor
+			c. Assign the rightChild of y into x.
+			d. If y is a child of nodeToBeDeleted, then set the parent of x as y.
+			e. Else, transplant y with rightChild y
+			f. Transplant nodeToBeDeleted with y.
+			g. Set the color of y with originalColor
+		6. If the originalColor is BLACK, call DeleteFix(x)
+	
+	Algorithm to maintain Red-Black property after deletion:
+		- This algorhtm is implemented when a black node is deleted because it violates
+		  the black depth property of the red-black tree.
+		- This violation is corrected by assuming that node x (which is occupying y's original
+		  position) has an extra black.
+		- It is either doubly black or black-and-red.
+		- This violates the red-black properties.
+		- However, the color attribute of x is not changed rather the extra black
+		  is represented in x's pointing to the node.
+		- The extra black can be removed if:
+			1. It reaches the root node
+			2. If x points to a red-black node. In this case, x is colored black.
+			3. Suitable rotations and recolorings are performed.
+		- Following algorithm retains the properties of a red-black tree.
+			1. Do the following until the x is not the root of the tree and the color of x is BLACK
+			2. If x is the left child of its parent then, 
+				a. Assign w to the sibling of x.
+				b. If the sibling of x is RED,
+					Case-I:
+						a. Set the color of the right child of the parent of x as BLACK
+						b. Set the color of the parent of x as RED
+						c. Left-Rotate the parent of x
+						d. Assign the rightChild of the parent of x to w.
+				c. if the color of both the right and the leftChild of w is BLACK
+					Case-II:
+						a. Set the color of w as RED
+						b. Assign the parent of x to x
+				d. Else if the color of the rightChild of w is BLACK
+					Case-III:
+						a. Set the color of the leftChild pf w as BLACk
+						b. Set the color of w as RED
+						c. Right-Rotate w
+						d. Assign the rightChild of the parent of x to w.
+				e. If any of the above cases do not occur, then do the following.
+					Case-IV:
+						a. Set the color of w as the color of the parent of x.
+						b. Set the color of the parent of parent of x as BLACK
+						c. Set the color of the right child of w as BLACK
+						d. Left-Rotate the parent of x
+						e. Set x as the root of the tree.
+			3. Else same as above with right changed to left and vice versa.
+			4. Set the color of x as BLACK
+			

@@ -1,0 +1,98 @@
+Graph Data Structure:
+    https://www.programiz.com/dsa/graph
+    - A graph data structure is a collection of nodes that have data
+      and are connected to other nodes.
+    Example:
+        - On facebook, everything is a node.
+        - That includes User, Photo, Album, Group, Page, Comment
+          Story, Video, Link, Note... anything that has data is a node.
+        - Every relationship is an ede from one node to another.
+        - Whether you post a photo, join a group, like a page, etc.
+        - A new edge is created for that relationship.
+        - All of facebook is then a collection of these nodes and edges.
+        - This is because facebook uses a graph data structure to store its data.
+    
+    More precisely, a graph is a data structure(V, E) that consists of:
+        - A collection of vertices V
+        - A collection of edges E, represented as ordered pairs of vertices (u,v)
+        In the graph:
+            V = {0, 1, 2, 3}
+            E = {(0,1), (0,2), (0,3), (1,2)}
+            G = {V, E}
+    
+    Graph Terminology:
+        Adjacency:
+            - A vertex is said to be adjacent to another vertex if there is an edge connecting them.
+            - Vertices 2 and 3 arenot adjecent because there is no edge between them.
+        Path:
+            - A sequence of edges that allows you to go from vertex A to vertex V is called a path.
+            - 0-1, 1-2 and 0-2 are paths from vertex 0 to vertex 2.
+        Directed Graph:
+            - A graph is which an edge (u,v) doesn't necessarily mean that there is an edge (v, u) as well.
+            - The edges in such a graph are represented by arrows to sohw the direction of the edge.
+        
+    Graph Representation:
+        - Graphs are commonly represented in two ways:
+        1. Adjacency Matrix:
+            - An adjacency matrix is a 2D array of V x V vertices.
+            - Each row and column represent a vertex.
+            - If the value of any element a[i][j] is 1, it represents that there is an edge connecting vertex i and vertex j.
+            # Flashbacks to linear algebra graphs
+            - Since it is an undirected graph, for edge (0,2),
+              we also need to mark edge (2,0); making the adjacency matrix symmetric about the diagonal.
+            - Edge lookup (checking if an edge exists between vertex A and vertex B) is extremely fast in adjacency matrix
+              representation but we have to reserve space for every possible link between all vertices (V x V),
+              so it requires more space.
+        
+        2. Adjacency List
+            - An adjacency list represents a graph as an array of linked lists.
+            - The index of the array represents a vertex and each element in its linked list represents other vertices
+              that form an edge with the vertex.
+            The adjacency list for the graph we made in the first example is as follows:
+            - An adjacency list is efficient in terms of storage because we only need to store the values for the edges.
+            - For a graph with millions of vertices, this can mean a lot of saved space.
+    
+    Graph Operations:
+        - Check if the element is present in the graph
+        - Graph Traversal
+        - Add elements(vertex, edges) to graph
+        - Finding the path from one vertex to another
+
+=================================================================================================================================
+
+Spanning Tree and Minimum Spanning Tree:
+    https://www.programiz.com/dsa/spanning-tree-and-minimum-spanning-tree
+    - Before we learn about spanning trees, we need to understand two graphs:
+        - Undirected graphs
+        - Connected graphs
+    - An undirected graph is a graph in which the edges do not point in any direction (ie. the edges are bidirectional)
+    - A connected graph is a graph in which there is always a path from a vertex to any other vertex.
+
+    Spanning Tree:
+        - A spanning tree is a sub-graph of an undirected connected graph,
+          which includes all the vertices of the graph with a minimum possible number of edges.
+        - If a vertex is missed, then it is not a spanning tree.
+        - The edges may or may not have weights assigned to them.
+        [The total number of spanning trees with n vertices that can be created from a complete graph is equal to n^(n-2)]
+        - If we have n = 4, the maximum number of possible spanning trees is equa to 4^(4-2)=16.
+        - Thus, 16 spanning trees can be formed from a complete graph with 4 vertices.
+        Example of a Spanning Tree: check website
+
+    Minimum of a Spanning Tree:
+        - A minimum spanning tree is a spanning tree in which the sum of the weight of the edges is as minimum as possible.
+        Example of a minimum Spanning Tree: check website
+        - The minimum spanning tree from a graph is found using the following algorithms:
+            1. Prim's Algorithm
+            2. Kruskal's Algorithm
+    
+    Spanning Tree Applications:
+        - Computer Network Routing Protocol
+        - Cluster Analysis
+        - Civil Network Planning
+    
+    Minimium Spanning Tree Applications:
+        - To find paths in the map
+        - To design networks like telecommunications networks, water supply networks, and electrical grids.
+        
+
+    

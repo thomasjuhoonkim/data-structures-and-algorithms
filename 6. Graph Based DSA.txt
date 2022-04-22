@@ -196,3 +196,134 @@ Adjacency Matrix:
 
 =====================================================================================================
 
+Adjacency List:
+	https://www.programiz.com/dsa/graph-adjacency-list
+	- An adjacency list represents a graph as an array of linked lists.
+	- The index of the array represents a vertex and each element in its linked list represents
+	  the other vertices that form an edge with the vertex.
+	Example:
+		0->1->2->3
+		1->0->2
+		2->0->1
+		3->0
+		- Here 0, 1, 2, 3 are vertices and each of them forms a linked list with all of its
+		  adjacency vertices. For instance, vertex 1 jas two adjacent vertices 0 and 2.
+		- Therefore, 1 is linked with 0 and 2.
+	
+	Pros of Adjacency List:
+		- An adjacency list is efficient in terms of storage because we only need to store the
+		  values for the edges.
+		- For a sparse graph with millions of vertices and edges, this can mean a lot of saved space.
+		- It also helps to find all the vertices adjacent to vertex easily.
+
+	Cons of Adjacency List:
+		- Finding the adjacent list is not quicker than adjacency matrix because all
+		  the connected nodes must be first explored to find them.
+	
+	Adjacency List Structure:
+		- The simplest adjacency list needs a node data structure to store a vertex and a graph
+		  data structure to oragnize the nodes.
+		- We stay close to the basic definition of a graph - a collection of vertices and edges
+		  {V, E}.
+		- For simplicity, we use an unlabeled graph as opposed to a labeled one
+		  ie. the vertices are identified by their indices 0,1,2,3
+		
+		struct node{
+			int vertex;
+			struct node* next;
+		};
+
+		struct Graph{
+			int numVertices;
+			struct node** adjLists;
+		};
+
+		- Don't let the struct node** adjLists overwhelm you.
+		- All we are saying is we want to store a pointer to struct node*.
+		- This is because we don't know how many vertices the graph will have and so we
+		  cannot create an array of Linked Lists at compile time.
+	
+	Adjacency List C++:
+		- It is the same structure but by using the in-built list STL data structures of C++,
+		  we make the structure a bit cleaner. We are also able to abstract the details
+		  of the implementation.
+
+		class Graph{
+			int numVertices;
+			list<int> *adjLists;
+			
+		public:
+			Graph(int V);
+			void addEdge(int src, int dest);
+		};
+
+	Adjacency List Python:
+	- There is a reason Python gets so much love.
+	- A simple dictionary of vertices and its edges is a sufficient represntation of a graph.
+	- you can make the vertex itself as complex as you want.
+		graph = {'A': set(['B', 'C']),
+				 'B': set(['A', 'D', 'E']),
+				 'C': set(['A', 'F']),
+				 'D': set(['B']),
+				 'E': set(['B', 'F']),
+				 'F': set(['C', 'E'])}
+	
+	Applications of Adjacency List:
+		- It is faster to use adjacency lists for graphs having less number of edges.
+
+===================================================================================================
+
+Depth First Search (DFS):
+	https://www.programiz.com/dsa/graph-dfs
+	- Depth first Search or Depth first traversal is a recursive algorithm for searching all
+	  the vertices of a graph or tree data structure.
+	- Traversal means visiting all the nodes of a graph.
+	
+	Depth First Search Algorithm:
+		- A standard DFS impementation pyts each vertex of the graph into one of two categories:
+		1. Visitied
+		2. Not Visitied
+		- The purpose of the algorithm is to mark each vertex as visited while avoiding cycles.
+		The DFS algorithm works as follows:
+			1. Start by putting any one of the graph's vertices on top of the stack.
+			2. Take the top item of the stack and add it to the visited list.
+			3. Create a list of that vertex's adjacent nodes. Add the ones which aren't in
+			   the visited list to the top of the stack.
+			4. Keep reapting steps 2 and 3 until the stack is empty.
+	
+	Depth First Search Example: check website
+
+	DFS Pseodocode (recursive implementation):
+		- The pseudocode for DFS is shown below. In the init() function,
+		  notice that we run the DFS function on every node.
+		- This is because the graph might have two different disconnected parts so to make ssure
+		  that we cover every vertex, we can alsp run the DFS algorithm on every node.
+		
+		DFS(G, u)
+			u.visited = true
+			for each v ∈ G.Adj[u]
+				if v.visited == false
+					DFS(G,v)
+			
+		init() {
+			For each u ∈ G
+				u.visited = false
+			For each u ∈ G
+			DFS(G, u)
+		}
+
+	DFS Implementation in Python, Java and C/C++: check implementation examples
+
+	Complexity of Depth First Search:
+		- The time complexity of the DFS algorithm is represented in the form of O(V +E),
+		  where V is the number of nodes and E is the number of edges.
+		- The space complexity of the algorithm is O(V).
+	
+	Applications of DFS Algorithm:
+		1. For finding the path
+		2. To test if the graph is bipartite
+		3. For finding he strongly connected components of a graph
+		4. For detecting cycles in a graph
+
+====================================================================================================
+

@@ -327,3 +327,122 @@ Depth First Search (DFS):
 
 ====================================================================================================
 
+Breadth First Search:
+	https://www.programiz.com/dsa/graph-bfs
+	- Traversal means visiting all the nodes of a graph.
+	- Breadth First Traversal or Breadth First Search is a recursive algorithm for searching
+	  all the vertices of a graph or tree data structure.
+	BFS Algorithm:
+		- A standard BFS implementation puts each vertex of the graph into one of two categories.
+		1. Visited
+		2. Not Visited
+		- The purpose of the algorithm is to mark each vertex as visited while avoiding cycles.
+		Algorithm:
+			1. Start by putting any one of the graph's vertices at the back of a queue.
+			2. Take the front item of the queue and add it to the visited list.
+			3. Create a list of that vertex's adjacent nodes. Add the noes which aren't in the
+			   visited list to the back of the queue.
+			4. Keep repeating steps 2 and 3 until the queue is empty.
+		- The graph might have two different disconnected parts so to make sure that we cover
+		  every vertex, we can also run the BFS algorithm on every node.
+	
+	BFS Example: check website
+
+	BFS pseudocode:
+		create a queue Q 
+		mark v as visited and put v into Q 
+		while Q is non-empty 
+			remove the head u of Q 
+			mark and enqueue all (unvisited) neighbours of u
+	
+	BFS implementation example: check implementation files
+
+	BFS Algorithm Complexity:
+		- The time complexity of the BFS algorithm is represented in the form of O(V + E),
+		  where V is the number of nodes and E is the number of edges.
+		- The space complexity of the algorithm is O(V).
+	
+	BFS Algorithm Applciations:
+		1. To build index by search index.
+		2. For GPS Navigation
+		3. Path finding algorithms
+		4. In Ford-Fulkerson algorithm to find maximum flow in a network
+		5. Cycle deteciton in an undirected graph
+		6. In minimum spanning tree.
+
+===============================================================================================
+
+Bellman Ford's Algorithm:
+	https://www.programiz.com/dsa/bellman-ford-algorithm
+	- Bellman Ford Algorithm helps is find the shortest path from a vertex to all other vertices
+	  of a weighted graph.
+	- It is similar to Dijkstra's algorithm but it can work with graphs in which edges can have
+	  negative weights.
+	
+	Why would one ever have edges with negative weights in real life?
+		- Negative weight edges might seem useless at first but they can explain a lot of
+		  phenomena like cashflow, the heat released/absolred in a chemical reaction, etc.
+		- For instance if there are different ways to reach from one chemical A to another chemical B 
+		  each method with have sub-reactions involving both heat dissipation and absorption.
+		- If we want to find the set of reacitons where minimum energy is required, then we will
+		  need to be able to factor in the heat absorption as negative weights and heat dissipation
+		  as positive weights.
+	
+	Why do we need to be careful with negative weights?
+		- Negative weight edges can create negative weight cycles ie. a cycle that will reduce the
+		  total path distance by coming back to the same point.
+		- Shortest path algorithms like Dijkstra's Algorithm that aren't able to detect such a
+		  cycle can give an incorrect result because they can go through a negative weight cycle
+		  and reduce the path length.
+	
+	How Bellman Ford's algorithm works:
+		- Bellman Ford algorithm works by overestimating the length of the path from the starting 
+		  vertex to all other vertices. Then it iteratively relaxes those estimates by finding new
+		  paths taht are shorter than the previously overestimated paths.
+		- By doing this repeatedly for all vertices, we can guarantee that the result is optimized.
+	
+	Bellman Ford Pseudocode:
+		- We need to maintain the path distance of every vertex.
+		- We can store that in an array of size v, where v is the number of vertices.
+		- We also want to be able to get the shortest path, not only know the legnth of the
+		  shortest path.
+		- For this, we map each vertex to the vertex that last updated its path length.
+		- Once the algorithm is over, we can backtrack from the destination vertex to the source
+		  vertex to find the path.
+
+		function bellmanFord(G, S)
+			for each vertex V in G
+				distance[V] <- infinite
+				previous[V] <- NULL
+			distance[S] <- 0
+
+			for each vertex V in G				
+				for each edge (U,V) in G
+				tempDistance <- distance[U] + edge_weight(U, V)
+				if tempDistance < distance[V]
+					distance[V] <- tempDistance
+					previous[V] <- U
+
+			for each edge (U,V) in G
+				If distance[U] + edge_weight(U, V) < distance[V}
+				Error: Negative Cycle Exists
+
+			return distance[], previous[]
+		
+	Bellman Ford vs Dijkstra:
+		- Bellman Ford's algorithm and Dijkstra's algorithm are very similar in structure.
+		  While Dijkstra looks only to the immediate neighbors of a vertex, Bellman goes through
+		  each edge in every iteraiton.
+	
+	Bellman Ford Algorithm Implementation Example: check files
+
+	Bellman Ford's Complexity:
+		Time Complexity:
+			Best Case Complexity: O(E)
+			Average Case Complxity: O(VE)
+			Worst Case Complexity: O(VE)
+		Space Complexity: O(V)
+	
+	Bellman Ford's Algorithm Applications:
+		1. For calculating shortest paths in routing algorithms
+		2. For finding the shortest path

@@ -1,0 +1,254 @@
+Bubble Sort:
+    - Bubble sort is a sorting algorithm that compares two adjacent elements and swaps them until
+      they are not in the intended order.
+    - Just like the movement of air bubbles in the ater that rise up to the surface, each element
+      of the array moves to the end in each iteration. Therefore, it is called a bubble sort.
+    
+    Working of Bubble Sort:
+        - Suppose we are trying to sort the elements in ascending order.
+        1. First Iteration (Compare and Swap)
+            1. Starting from the first index, compare the first and the second elements.
+            2. If the first element is greater than the second element, they are swapped.
+            3. Now, compare the second and the third elements. Swap them if they are not in order.
+            4. The above process goes on until the last element.
+        2. Remaining Iteration
+            - The same process goes on for the remaining iterations.
+            - After each iteration, the largest element among the unsorted elements is placed
+              at the end.
+            - In each iteration, the comparison takes place up to the last unsorted element.
+            - The array is sorted when all the unsorted elements are placed at their
+              correct positions.
+    
+    Bubble Sort Algorithm:
+        bubbleSort(array)
+            for i <- 1 to indexOfLastUnsortedElement-1
+                if leftElement > rightElement
+                    swap leftElement and rightElement
+        end bubbleSort
+    
+    Bubble Sort Code: Example Files
+
+    Optimized Bubble Sort Algorithm:
+        - In the above algorithm, all the comparions are made even if the array is already sorted.
+        - This increases the execution time
+        - To solve this, we can introduce an extra variable swapped. The value of swapped is set
+          true if there occurs swapping of elements. Otherwise, it is set to false.
+        - After an iteration, if there is no swapping, the value of swapped will be false.
+          This means elements are already sorted and there is no need to perform further iterations.
+        - This will reduce the execution time and helpes to optimize the bubble sort.
+
+        Algorithm for Optimized Bubble Sort:
+            bubbleSort(array)
+                swapped <- false
+                for i <- 1 to indexOfLastUnsortedElement-1
+                    if leftElement > rightElement
+                        swap leftElement and rightElement
+                        swapped <- true
+            end bubbleSort
+    
+    Bubble Sort Complexity:
+        Time Complexity:
+            Best: O(n)
+            Worst: O(n^2)
+            Average O(n^2)
+        Space Complexity: O(1)
+        Stability: Yes
+    
+    Complexity in Detail:
+        Cycle   Number of Copmarisons
+        1st     (n-1)
+        2nd     (n-2)
+        3rd     (n-3)
+        ...     .....
+        last    1
+
+        The number of comparisons is (n-1) + (n-2) + (n-3) +...+ 1 = n(n-1)/2
+        nearly equals to n^2
+
+        - Hence Complexity O(n^2)
+        - Also, if we observe the code, bubble sort requires two loops. Hence the complexity
+          n*n = n^2
+        
+        Time Complexities:
+            Worst Case Complexity: O(n^2)
+                - If we want to sort in ascending order and the array is in descending order then
+                  the worst case occurs.
+            Best Case Complexity: O(n)
+                - If the array is already sorted, then there is no need for sorting.
+            Average Case Complexity: O(n^2)
+                - It occurs when the elements of the array are in jumbled order (neither ascending
+                  nor descending).
+        Space Complexity:
+            - Space complexity is O(1) because an extra vaariable is used for swapping.
+            - In the optimized bubble sort algorithm, two extra variables are used. Hence, the
+              space complexity will be O(2).
+        
+    Bubble Sort Applications:
+        - Bubble sort is used if
+            - complexity does not matter
+            - short and simple code is preferred
+    
+    Similar Sorting Algorithms
+        - Quicksort
+        - Insertion sort
+        - Merge sort
+        - Selection sort
+
+====================================================================================================
+
+Selection Sort:
+    - Selection sort is a sorting algorithm that selects the smallest element from an unsorted list
+      in each iteration and places that element at the beginning of the unsorted list.
+    
+    Working of Selection Sort:
+        1. Set the first element as minimum.
+        2. Compare minimum with the second element. If the second element is smaller than minimum,
+           assign the second element as minimum.
+
+           Compare minimum with the third element. Again, if the third element is smaller, then
+           assign minimum to the third element otherwise do nothing. The process goes on until
+           the last element.
+        3. After each iteration, minimum is placed in the front of the unsorted list.
+        4. For each iteration, indexing starts from the first unsorted element. Step 1 to 3 are
+           repeated until all the elements are placed at their correct positions.
+    
+    Selection Sort Algorithm:
+        selectionSort(array, size)
+            repeat (size - 1) times
+            set the first unsorted element as the minimum
+            for each of the unsorted elements
+                if element < currentMinimum
+                    set element as new minimum
+            swap minimum with first unsorted position
+        end selectionSort
+    
+    Selection Sort Code: Example Files
+
+    Selection Sort Complexity:
+        Time Complexity:
+            Best: O(n^2)
+            Worst: O(n^2)
+            Average: O(n^2)
+        Space Complexity: O(1)
+        Stability: No
+
+        Cycle   Number of Comparisons 
+        1st     (n-1)
+        2nd     (n-2)
+        3rd     (n-3)
+        ...     .....
+        last    1
+
+        - Number of comparisons: (n-1) + (n-2) + (n-3) + ... + 1 = n(n-1)/2 nearly equals to n^2
+        - Complexity = O(n^2)
+        - Also, we can analyse the complexity by simply observing the number of loops.
+          There are 2 loops so the complexity is n*n = n^2.
+        
+        Time Complexities:
+            Worst Case Complexity: O(n^2)
+                - If we want to sort in ascending order and the array is in descending order then,
+                  the worst case occurs.
+            Best Case Complexity: O(n^2)
+                - It occurs when the array is already sorted
+            Average Case Complexity: O(n^2)
+                - It occurs when the elements of the array are in jumbled order (neither ascending
+                  nor descending)
+            
+            The time complexity of the selection sort is the same in all cases. At every step,
+            you have to find the minimum element and put it in the right place. The minimum element
+            is not known until the end of the array is not reached.
+        
+        Space Complexity:
+            - Space complexity is O(1) because an extra variable temp is used.
+    
+    Selection Sort Applications:
+        The selection sort is used when:
+            - a small list is to be sorted.
+            - cost of swapping does not matter
+            - checking if all the elements is compulsory
+            - cost of writing to a memory matters like in flash memory (number of writes/swaps is
+              O(n) as compared to O(n^2) of bubble sort)
+    
+    Similar Sorting Algorithms:
+        - Bubble sort
+        - Quicksort
+        - Insertion sort
+        - Merge sort
+
+=================================================================================================
+
+Insertion Sort Algorithm:
+    - Insertion sort is a sorting algorithm that palces an unsorted element at its suitable place
+      in each iteration.
+    - Insertion sort works similarly as we sort cards in our hand in a card game.
+    - We assume that the first card is already sorted then, we select an unsorted card. If the
+      unsorted card is greater than the card in hand, it is placed on the right otherwise, to
+      the left. In the same way, other unsorted cards are taken and put in the right place.
+    - A similar approach is used by insertion sort.
+
+    Working of Insertion Sort:
+        1. The first element in the array is assumed to be sorted. Take the second element and
+           store it separately in key.
+
+           Compare key with the first element. If the first element is greater than key, then key is
+           placed in front of the first element.
+        
+        2. Now, the first two elements are sorted.
+
+           Take the third element and compare it with the elements on the left of it. Place it just
+           behind the element smaller than it. If there is no element smaller than it, then place it
+           at the beginning of the array.
+
+        3. Similarly, place every unsorted element at its correct position.
+    
+    Insertion Sort Algorithm:
+        insertionSort(array)
+            mark first element as sorted
+            for each unsorted element X
+                'extract' the element X
+                for j <- lastSortedIndex down to 0
+                    if current element j > X
+                        move sorted element to the right by 1
+                break loop and insert X here
+        end insertionSort
+    
+    Insertion Sort Code: Example Files
+
+    Insertion Sort Complexity:
+        Time Complexity:
+            Best: O(n)
+            Worst: O(n^2)
+            Average: O(n^2)
+        Space Complexity: O(1)
+        Stability: Yes
+
+        Time Complexities:
+            Worst Case Complexity: O(n^2)
+                - Suppose, an array is in ascending order, and you want to sort it in
+                  descending order. In this case, worst case complexity occurs.
+                - Each element has to be compared with each of the other elements so, for every
+                  nth element, (n-1) number of comparisons are made.
+                - Thus, the total number of comparisons = n*(n-1) ~ n^2
+            Best Case Complexity: O(n)
+                - When the array is already sorted, the outer loop runs for n number of times whereas
+                  the inner loop does not run at all. So, there are only n number of comparison.
+                - Thus, complexity is linear.
+            Average Case Complexity:
+                - It occurs when the elements of an array are in jumbled order (neither ascending
+                  nor descending)
+        
+        Space Complexity:
+            - Space complexity is O(1) because an extra variable key is used.
+    
+    Insertion Sort Applications:
+        The insertion sort is used when:
+            - the array has a small number of elements.
+            - there are only a few elements left to be sorted
+    
+    Similar Sorting Algorithms:
+        1. Bubble Sort
+        2. Quicksort
+        3. Merge Sort
+        4. Selection Sort
+
+====================================================================================================

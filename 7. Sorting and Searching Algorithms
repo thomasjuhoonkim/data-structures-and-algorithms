@@ -686,3 +686,215 @@ Radix Sort Algorithm:
     
 ============================================================================================================================================
 
+Bucket Sort:
+    - Bucket Sort is a sorting algorithm that divides the unsorted array elements into several groups called buckets.
+    - Each bucket is then sorted by using any of the suitable sorting algorithms or recursively applying the same bucket algorithm.
+    - Finally, the sorted buckets are combined to form a final sorted array.
+
+    Scatter Gather Approach:
+        - The process of bucket sort can be understood as a scatter-gather approach.
+        - Here, elements are first scattered into buckets then the elemnets in each bucket are sorted.
+        - Finally, the elements are gathered in order.
+    
+    Working of Bucket Sort:
+        1. Suppose, the input array is:
+            0.42, 0.32, 0.23, 0.52, 0.25, 0.47, 0.51
+           Create an array of size 10. Each slot of this array is used as a bucket for storing elements.
+        2. Insert elements into the buckets from the array. The elements are inserted according to the range of the bucket.
+           In our example code, we have buckets each of ranges from 0 to 1, 1 to 2, 2 to 3..... (n-1) to n.
+           Suppose, an input element is 0.23 is taken. It is multiplied by size = 10 (ie. 0.23*10=2.3)
+           Then it is converted into an integer (ie. 2.3=2). Finally, 0.23 is inserted into bucket-2.
+           
+           Similarly, 0.23 is also inserted into the same bucket.
+           Everytime, the floor value of the floating point number is taken.
+
+           If we take integer numbers as input, we have to divide it by the interval (10 here) to get the floor value.
+           
+           Similarly, other elements are inserted into their respective buckets.
+        3. The elemnts of each bucket are sorted using any of the stable sorting algorithms. Here, we have used quicksort (inbuilt function)
+        4. The elements from each bucket are gathered.
+           It is done by iterating through the bucket and inserting an individual element into the original array in each cycle.
+           The element from the bucket is erased once it is copied into the original array. 
+        
+    Bucket Sort Algorithm:
+        bucketSort()
+            create N buckets each of which can hold a range of values
+            for all the buckets
+                initialize each bucket with 0 values
+            for all the buckets
+                put elements into buckets matching the range
+            for all the buckets 
+                sort elements in each bucket
+            gather elements from each bucket
+        end bucketSort
+    
+    Bucket Sort Complexity:
+        Time Complexity:
+            Best: O(n+k)
+            Worst: O(n^2)
+            Average: O(n)
+        Space Complexity: O(n+k)
+        Stability: Yes
+
+        Worst Case Complexity: O(n^2)
+            - When there are elements of close range in the array, they are likely to be placed in the same bucket.
+            - This may result in some buckets having more number of elements than others.
+            - It makes the copmlexity depend on the sorting algorithm used to sort the elements of the bucket.
+            - The complexity becomes even worse when the elements are in reverse order.
+            - If insertion sort is used to sort elements of the bucket, then the time complexity becomes O(n^2).
+        
+        Best Case Complexity: O(n+k)
+            - It occurs when the elements are uniformly distributed in the buckets with a nearly equal number of elements in each bucket.
+            - The complexity becomes even better if the elements inside the buckets are already sorted.
+            - If insertion sort is used to sort elements of a bucket then the overall complexity in the best case will be linear ie. O(n+k).
+            - O(n) is the complexity for making the buckets and O(k) is the complexity for sorting the elements of the bucket using algorithms
+              having linear time complexity at best case.
+        
+        Average Case Complexity: O(n)
+            - It occurs when the elements are distributed randomly in the array. Even if the elements are not distributed uniformly, bucket sort runs in linear time.
+            - It holds true until the sum of the squares of the bucket sizes is linear in the total number of elements.
+        
+    Bucket Sort Applications:
+        - Input is uniformly distributed over a range.
+        - There are floating point values
+    
+    Similar Sorting Algorithms:
+        - Bubble Sort
+        - Quicksort
+        - Insertion Sort
+        - Merge Sort
+        - Selection Sort 
+
+=========================================================================================
+
+Heap Sort Algorithm:
+    - Heap sort is a popular and efficient sorting algorithm in computer programming.
+    - Learning how to write the heap sort algorithm requires knowledge of two types of data structures
+      arrays and trees.
+    - The inital set of numbers that we want to sort is stored in an array ex. [10, 3, 76, 34, 23, 32]
+      and after sorting, we get a sorted array [3, 10, 23, 32, 34, 76].
+    - Heap sort works by visualizing the elements of the array as a special kind of complete binary tree
+      called a heap.
+    
+    Relationship between Array Indexes and Tree Elements:
+        - A complete binary tree has an interesting property that we can use to find the children and parents of any node.
+        - If the index of any element in the array is i, the element in the index 2i+1 will become the left child and
+          element in 2i+2 index will become the right child.
+        - Also, the parent of any element at index i is given by the lower bound of (i-1)/2.
+    
+    Heap Data Structure:
+        - Heap is a special tree-based data structure. A binary tree is said to follow a heap data structure if
+            - it is a complete binary tree
+            - All nodes in the tree follow the property that they are greater than their children ie. the largest element
+              is at the root and both its children and smaller than the root and so on.
+            - Such a heap is called a max-heap. If instead, all nodes are smaller than their children, it is called a min-heap.
+        How to "heapify" a tree:
+            - Starting from a complete binary tree, we can modify it to become a Max-Heap by running a function called heapify
+              on all the non-leaf elements of the heap.
+            - Since heapify uses recursion, it can be difficult to grasp.
+            - So let's first think about how you would heapify a tree with just three elements.
+            heapify(array)
+                Root = array[0]
+                Largest = largest( array[0] , array [2*0 + 1]. array[2*0+2])
+                if(Root != Largest)
+                    Swap(Root, Largest)
+            - The example above shows two scenarios - one in which the root is the largest element and we don't need to do anything.
+            - And another in which the root had a larger element as a child and we needed to swap to maintain max-heap property.
+            - If you've worked with recursive algorithms before, you've probably identified that this must be the base case.
+            - Now let's think of another scenario in which there is more than one level.
+            - The top element isn't a max-heap but all the sub-trees are max-heaps.
+            - To maintain the max-heap property for the entire tree, we will have to keep pushing 2 downwards until it reaches its correct position.
+            - Thus, to maintain the max-heap property in a tree where both sub-trees are max-heaps, we need to run heapify on the root element repeatedly
+              until it is larger than its children or it becomes a leaf node.
+            - We can combine both these conditions in one heapify function as
+            void heapify(int arr[], int n, int i) {
+                // Find largest among root, left child and right child
+                int largest = i;
+                int left = 2 * i + 1;
+                int right = 2 * i + 2;
+
+                if (left < n && arr[left] > arr[largest])
+                    largest = left;
+
+                if (right < n && arr[right] > arr[largest])
+                    largest = right;
+
+                // Swap and continue heapifying if root is not largest
+                if (largest != i) {
+                    swap(&arr[i], &arr[largest]);
+                    heapify(arr, n, largest);
+                }
+            }
+            - This function works for both the base case and for a tree of anu size.
+            - We can thus move the root element to the correct position to maintain the max-heap status for any tree size as long as the sub-trees are max-heaps.
+        
+    Build max-heap:
+        - To build a max-heap from any tree, we can thus start heapifying each sub-tree from the bottom up
+            and end up wit ha max-heap after the function is applied to all the elements including the root element.
+        - In the case of a complete tree, the first index of a non-leaf node is given by n/2-1. All other nodes after that are leaf-nodes and thus don't need to be heapified.
+        - So we can build a maximum heap as:
+            // Build heap (rearrange array)
+            for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+        - As shown in the above diagram, we start by heapifying the lowest smallest trees and gradually move up
+            until we reach the root element.
+        - If you've understood everything till here, congratulations, you are on your way to mastering the Heap sort.
+    
+    Working of Heap Sort:
+        1. Since the tree satisfies Max-Heap property, then the largest item is stored at the root node.
+        2. Swap: Remove the element and put at the end of the array (nth position) Put the last item of the tree (heap) at the vacant place.
+        3. Remove: Reduce the size of the heap by 1.
+        4. Heapify: Heapify the root element again so that we have the highest element at root.
+        5. The process is repeated until all the items of the list are sorted.
+        // Heap sort
+        for (int i = n - 1; i >= 0; i--) {
+        swap(&arr[0], &arr[i]);
+
+        // Heapify root element to get highest element at root again
+        heapify(arr, i, 0);
+        }
+    
+    Heap Sort Code: example files
+
+    Heap Sort Complexity:
+        Time Complexity:
+            Best: O(nlog n)
+            Worst: O(nlog n)
+            Average: O(nlog n)
+        Space Complexity: O(1)
+        Stability: No
+
+        - Heap sort has O(nlog n) time complexities for all the cases (best case, average case, worst case)
+        - Let us understand the reason why. The height of a complete binary tree containing n elements is log n 
+        - As we have seen earlier, to fully heapify an element whose subtrees are already max-heaps,
+            we need to keep comparing the element with its left and right children and pushing it downwards
+            until it reaches a point where both its children are smaller than it.
+        - In the worst case scenario, we will need to move an element from the root to the leaf node making a multiple
+            of log(n) comparisons and swaps.
+        - During the build-max-heap stage, we do that for n/2 elements so the worst case complexity of the build_heap step
+            is n/2*log n ~ nlog n.
+        - During the sorting step, we exchange the root element with the last element and heapify the root element.
+            For each element, this again takes log n worst time because we might have to bring the element all the way from the
+            root to the leaf. Since we repeat this n times, the heap_sort step is also nlog n.
+        - Also since the build_max_heap and heap_sort steps are executed on after another, the algorithmic complexity is not
+            multiplied and it remains in the order of nlog n.
+        - Also it performs sorting in O(1) space complexity.
+        - Compared with quick sort, it has a better worst case (O(nlog n)).
+        - Quick sort has complexity O(n^2) for worst case. But in other cases, quicksort is fast.
+        - Introsort is an alternative to heapsort that combines quicksort and heapsort to retain advantages of both:
+            worst case speed of heapsort and average speed of quicksort.
+    
+    Heap Sort Applications:
+        - Systems concerned with security and embedded systems such as Linux Kernel use Heap Sort because of the 
+          O(nlog n) upper bound on Heapsort's running time and constant O(1) upper bound on its auxiliary storage.
+        - Although Heap Sort has O(nlog n) time complexity even for the worst case, it doesn't have more applications
+          (compared to other sorting algorithms like Quick Sort, Merge Sort).
+        - However, its underlying data structure, heap, can be efficiently used if we want to extract the smallest (or largest)
+          from the list of items without the overhead of keeping the remaining items in the sorted order. For ex. Priority Queues.
+    
+    Similar Sorting Algorithms:
+        1. Quicksort
+        2. Merge Sort
+
+==============================================================================================================================================
+

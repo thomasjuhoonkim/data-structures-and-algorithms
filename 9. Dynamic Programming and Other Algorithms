@@ -1,0 +1,209 @@
+Dynamic Programming:
+    - Dynamic Programming is a technique in computer programming that helps
+      to efficiently solve a class of problems that have overlapping subproblems
+      and optimal substructure property.
+    - If any problem can be divided into subproblems, which in turn are divided
+      into smaller subprobelms, and if there are overlapping among these subproblems,
+      then the solutions to these subproblems can be saved for future reference.
+      In this way, efficiency of the CPU can be enhanced. This method of solving a
+      solution is referred to as dynamic programming.
+    - Such problems involve repeatedly calculating the valuye of the same subproblems
+      to find the optimal solution.
+    
+    Dynamic Programming Example:
+        - Let's find the fibonacci sequence upto 5th term. A fibonacci series is the
+          sequence of numbers in which each number is the sum of the two preceding ones.
+          For example, 0, 1, 1, 2, 3. Here, each number is the sum of the two preceding numbers.
+        
+        Algorithm:
+            Let n be the number of terms.
+
+            1. If n <= 1, return 1.
+            2. Else, return the sum of two preceding numbers.
+        
+            We are calculating the fibonacci sequence up to the 5th term.
+                1. The first term is 0.
+                2. The second term is 1.
+                3. The third term is sum of 0 (from step 1) and 1 (from step 2), which is 1.
+                4. The fourth term is the sum of the third term (from step 2), ie. 1 + 1 = 2.
+                5. The fifth term is the sum of the fourth term (from step 4) and third term (from step 3)
+                   ie. 2 + 1 = 3
+            
+            Hence, we have the sequence 0, 1, 1, 2, 3. Here, we have used the results of the previous steps
+            as shown below. This is called a dynamic programming approach.
+            F(0) = 0
+            F(1) = 1
+            F(2) = F(1) + F(0)
+            F(3) = F(2) + F(1)
+            F(4) = F(3) + F(2)
+
+    How Dynamic Programming Works:
+        - Dynamic programming works by storing the result of subproblems so that when their solutions are required,
+          they are at hand and we do not need to recalculate them.
+        - This technique of storing the value of subproblems is called memoization. By saving the values in the
+          array, we save time for computations of sub-problems we have already come across.
+        var m = map(0 → 0, 1 → 1)
+        function fib(n)
+            if key n is not in map m 
+                m[n] = fib(n − 1) + fib(n − 2)
+            return m[n]
+        - Dynamic programming by memoization is a top-down approach to dynamic programming. By reversing the
+          direction in which the algorithm works ie. by starting from the base case and working towards the solution,
+          we can also implement dynamic programning in a bottom-up manner.
+        function fib(n)
+            if n = 0
+                return 0
+            else
+                var prevFib = 0, currFib = 1
+                repeat n − 1 times
+                    var newFib = prevFib + currFib
+                    prevFib = currFib
+                    currFib  = newFib
+            return currentFib
+    
+    Recursion vs Dynamic Programming:
+        - Dynamic programming is mostly applied to recursive algorithms. This is not a coincidence, most optimization
+          problems require recursion and dynamic programming is used for optimization.
+        - But not all problems that use recursion can use Dynamic programming. Unless there is a presence of overlapping
+          subproblems like in the fibonacci sequence problems, a recursion can only reach the solution using a divide and conquer approach.
+        - That is the reason why a recursive algorithm like Merge Sort cannot use Dynamic Programming, because the subproblems are
+          not overlapping in any way.
+    
+    Greedy Algorithm vs Dynamic Programming:
+        - Greedy Algorithms are similar to dunamic programming in the sense that they are both tools for optimization.
+        - However, greddy algorithms look for locally optimum solutions or in other words, a greedy chocie, in the hopes of finding a global optimum.
+        - Dynamic programming, on the other hand, finds the optimal solution to subproblems and then makes an informed choice to combine the results
+          of those subproblems to find the most optimum solution.
+
+    Different Types of Dynamic Programming Algorithms:
+        - Longest Common Subsequence
+        - Floyd-Warshall Algorithm
+
+======================================================================================================================================================
+
+Floyd-Warshall Algorithm:
+	- Floyd-Warshall Algorithm is an algorithm for finding the shortest oath between all the pairs of vertices in a weighted graph.
+	  This algorithm works for both the directed and undirected weighted graphs. Butm it does not work for the graphs with negative cycles
+	  (where the sum of the edges in a cycle is negative).
+	- Floyd-Warshall algorithm is also called as Floyd's algorithm, Roy-Floyd algorithm, Roy-Warshall algorithm, or WFI algorithm.
+	- This algorithm follows the dynamic programming approach to find the shortes paths.
+
+	How Floyd-Warshall Works?
+		1. Create a matrix A^0 of dimension n*n where n is the number of vertices. The row and the column are indexed as i and j respectively.
+		   i and j are the vertices of the graph.
+
+		   Each cell A[i][j] is filled with the distance from the ith vertex to the jth vertex. If there is no path from ith vertex to jth vertex,
+		   the cell is left as infinity.
+		
+		2. Now, create a matrix A^1 using matrix A^0. The elements in the first column and the first row are left as they are.
+		   The remaining cells are filled in the following way.
+
+		   Let k be the intermediate vertex in the shortes path from source to destination. In this step, k is the first vertex. A[i][j] is filled with
+		   (A[i][k] + A[k][j]) if (A[i][j] > A[i][k] + A[k][j]).
+
+		   That is, if the direct distance from the source to the destination is greater than the path through the vertex k, then the cell is filled with
+		   A[i][k] + A[k][j].
+
+		   In this step, k is vertex 1. We calculate the distance from source vertex to destination vertex through this vertex k.
+
+		   For example: For A^1[2, 4], the firect distance from vertex 2 to 4 is 4 and the sum of the distance from vertex 2 to 4 through vertex (ie. from vertex 2 to 1
+		   and from vertex 1 to 4) is 7. Since 4 < 7, A^0[2, 4] is filled with 4.
+		
+		3. Similarly, A^2 is created using A^1. The elements in the second column and the second row are left as they are.
+
+		   In this step, k is the second vertex (ie. vertex 2). The remaining steps are the same as in step 2.
+		
+		4. Similarly, A^3 and A^4 is also created.
+
+		5. A^4 gives the shortes path between each pair of vertices.
+	
+	Floyd-Warshall Algorithm:
+		n = no of vertices
+		A = matrix of dimension n*n
+		for k = 1 to n
+			for i = 1 to n
+				for j = 1 to n
+					Ak[i, j] = min (Ak-1[i, j], Ak-1[i, k] + Ak-1[k, j])
+		return A
+	
+	Floyd-Warshall Example: Example Files
+
+	Floyd Warshall Algorithm Complexity:
+		Time Complexity:
+			- There are three loops. Each loop has constant complexities. So the time complexity of the Floyd-Warshall algorithm i O(n^3).
+		Space Complexirt:
+			- The spacec complexity of the Floyd-Warshall algorithm is O(n^2).
+	
+	Floyd Warshall Algorithm Applications
+		- To find the shortes path is a directed graph
+		- To find the transitive closure of directed graphs
+		- To find the Inversion of real matrices
+		- For testing whether an unfirected graph is bipartite.
+
+===========================================================================================================================================================================
+
+Longest Common Subsequence:
+	- The longest common subsequence (LCS) is defined as the longest subsequence that is common to all the given sequences, provided
+	  that the elements of the subsequence are not required to occupy consecutive positions within the original sequences.
+	- If S1 and S2 are the two given sequences then, Z is the common subsequence of S1 and S2 if Z is a subsequence of both S1 and S2. Furthermore,
+	  Z must be a strictly increasing sequence of the indices of both S1 and S2.
+	- In a strictly increasing sequence, the indices of the elements chosen from the original sequences must be in ascending order in Z.
+	- If S1 = {B, C, D, A, A, C, D} Then, {A, D, B} cannot be a subsequence of S1 as the order of the elements is not the same (ie. not strictly increasing sequence)
+
+	LCS Example:
+		S1 = {B, C, D, A, A, C, D}
+		S2 = {A, C, D, B, A, C}
+		Common subseuqneces are {B, C}, {C, D, A, C}, {A, A, C}, {A, C}, {C, D}, ...
+		Among these subsequences, {C, D, A, C} is the longest common subsequence.
+		- We are going to find the longest common subsequence using dynamic programming.
+	
+	Using Dynamic Programming to find the LCS:
+		Let us take two sequences:
+			X = {A, C, A, D, B}
+			Y = {C, B, D, A}
+		The following steps are followed for finding the longest common subsequence.
+		1. Create a table of dimension n+1*m+1 where n and m are the lengths of X and Y respectively.
+		   The first row and the first column are filled with zeros.
+		2. Fill each cell of the table using the following logic.
+		3. If the character corresponding to the current row and current column are matching, then fill the current cell by adding one to the diagonal element.
+		   Point an arrow to the diagonal cell.
+		4. Else take the maximum value from the previous column and previous row element for filling the current cell.
+		   Point an arrow to the cell with maximum value. If they are equal, point to any of them.
+		5. Step 2 is repeated until the table is filled.
+		6. The value in the last row and the last column is the length of the longest common subsequence.
+		7. In order to find the longest common subsequence, start from the last element and follow the direction of the arrow.
+		   The elements are corresponding to () symbol form the longest common subsequence.
+		Thus the longest common subsequence is CA.
+
+	How is a dynamic programming algorithm more efficient than the recursive algorithm while solving an LCS problem?
+		- The method of dynamic programming reduces the number of function calls. It stores the result of each function call so that is can be used in future
+		  calls without the need for redundant calls.
+		- In the above dynamic algorithm, the results obtained from each comparison between elements of X and the elements of Y are stored in a table
+		  so that they can be used in future comparisons.
+		- So, the time taken by a dynamic approach is the time taken to fill the table O(mn).
+		  Whereas, the recursion algorithm has the complexity of 2^max(m, n).
+	
+	Longest Common Subsequence Algorithm:
+		X and Y be two given sequences
+		Initialize a table LCS of dimension X.length * Y.length
+		X.label = X
+		Y.label = Y
+		LCS[0][] = 0
+		LCS[][0] = 0
+		Start from LCS[1][1]
+		Compare X[i] and Y[j]
+			If X[i] = Y[j]
+				LCS[i][j] = 1 + LCS[i-1, j-1]   
+				Point an arrow to LCS[i][j]
+			Else
+				LCS[i][j] = max(LCS[i-1][j], LCS[i][j-1])
+				Point an arrow to max(LCS[i-1][j], LCS[i][j-1])
+	
+	Longest Common Subsequence Code: example Files
+
+	Longest Common Subsequence Applications:
+		1. In compressin genome resequencing data
+		2. To authenticate users within their mobile phone through in-air signatures.
+
+=====================================================================================================================================================================
+
